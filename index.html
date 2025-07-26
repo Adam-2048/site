@@ -1,16 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Welcome to My Site</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adam's Fun Site</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 50px; }
-    a { display: block; margin: 10px; font-size: 20px; }
+    :root {
+      --bg-color: #f0f0f0;
+      --text-color: #111;
+      --link-color: #0077cc;
+    }
+
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #eee;
+      --link-color: #66ccff;
+    }
+
+    body {
+      margin: 0;
+      padding: 2em;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-size: 1.2rem;
+      display: block;
+      margin: 0.5em 0;
+    }
+
+    .toggle-button {
+      position: fixed;
+      top: 1em;
+      right: 1em;
+      padding: 0.5em 1em;
+      background: var(--link-color);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .toggle-button:hover {
+      background: #005fa3;
+    }
+
+    .content {
+      max-width: 600px;
+      margin: auto;
+    }
   </style>
 </head>
 <body>
-  <h1>Welcome to My Site</h1>
-  <p>This is my little corner of the internet.</p>
-  <a href="projects/project1.html">Project 1</a>
-  <a href="projects/project2.html">Project 2</a>
+  <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+  <div class="content">
+    <h1>Welcome to Adam's Site</h1>
+    <p>This is my personal internet playground. More stuff coming soon.</p>
+
+    <h2>Projects</h2>
+    <a href="projects/project1.html">🔗 Project 1</a>
+    <a href="projects/project2.html">🔗 Project 2</a>
+    <a href="projects/whatever.html">🔗 Something Cool</a>
+  </div>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      // Optionally: save preference
+      localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+    }
+
+    // Load saved mode
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark');
+    }
+  </script>
 </body>
 </html>
