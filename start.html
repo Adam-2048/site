@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Start - Adam's Digital Playground</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #0d0d0d;
@@ -12,7 +12,6 @@
       --accent: #b3323c;
       --card-bg: #1f1f1f;
     }
-
     body {
       margin: 0;
       padding: 0;
@@ -25,45 +24,96 @@
       justify-content: center;
       height: 100vh;
     }
-
     header {
       position: absolute;
       top: 0;
       left: 0;
       padding: 1rem;
     }
-
-    .logo {
+    .logo a {
+      color: var(--accent);
+      text-decoration: none;
       font-family: 'Press Start 2P', monospace;
       font-size: 0.85rem;
-      color: var(--accent);
     }
-
     .clock {
       font-size: 4rem;
       font-weight: bold;
       margin-bottom: 1rem;
+      font-family: 'Press Start 2P', monospace;
     }
-
-    .bits {
+    form.search {
+      margin-bottom: 2rem;
+      display: flex;
+      width: 300px;
+    }
+    form.search input[type="text"] {
+      flex-grow: 1;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px 0 0 4px;
       font-size: 1rem;
-      opacity: 0.6;
+      outline: none;
+    }
+    form.search button {
+      padding: 0 1rem;
+      border: none;
+      background: var(--accent);
+      color: var(--fg);
+      font-weight: bold;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      font-family: 'Press Start 2P', monospace;
+    }
+    .shortcuts {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 600px;
+    }
+    .shortcut {
+      background: var(--card-bg);
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    .shortcut:hover {
+      background: var(--accent);
+      color: var(--fg);
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo"><a href="index.html" style="color: var(--accent); text-decoration: none;">&larr; Home</a></div>
+    <div class="logo"><a href="index.html">&larr; Home</a></div>
   </header>
 
-  <div class="clock" id="clock">--:--:--</div>
-  <div class="bits">Loading something wonderful...</div>
+  <div class="clock" id="clock">--:--</div>
+
+  <form class="search" action="https://www.google.com/search" method="GET" target="_blank" role="search">
+    <input type="text" name="q" placeholder="Search Google..." aria-label="Search Google" />
+    <button type="submit">GO</button>
+  </form>
+
+  <div class="shortcuts">
+    <a class="shortcut" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a class="shortcut" href="https://news.ycombinator.com/" target="_blank" rel="noopener noreferrer">Hacker News</a>
+    <a class="shortcut" href="https://mail.google.com/" target="_blank" rel="noopener noreferrer">Gmail</a>
+    <a class="shortcut" href="https://twitter.com/" target="_blank" rel="noopener noreferrer">Twitter</a>
+  </div>
 
   <script>
     function updateClock() {
       const now = new Date();
-      const time = now.toLocaleTimeString();
-      document.getElementById('clock').textContent = time;
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      document.getElementById('clock').textContent = `${hours}:${minutes}`;
     }
     setInterval(updateClock, 1000);
     updateClock();
