@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Misc – Gallery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #181818;
+      --fg: #f4f4f4;
+      --accent: #d94b3d;
+      --card-bg: #222;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      padding: 2rem;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    .logo a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    nav a {
+      color: var(--fg);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: bold;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+    }
+
+    .photo-grid img {
+      width: 100%;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .photo-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      display: none;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 0.75rem;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><a href="index.html">ADAM'S HUB</a></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="startpage.html">Startpage</a>
+    </nav>
+  </header>
+
+  <h1>Misc</h1>
+  <div class="photo-grid">
+    <img src="https://source.unsplash.com/400x300/?abstract,shapes" alt="Photo 1">
+    <img src="https://source.unsplash.com/400x300/?random,art" alt="Photo 2">
+    <img src="https://source.unsplash.com/400x300/?city,night" alt="Photo 3">
+    <img src="https://source.unsplash.com/400x300/?sunset,sky" alt="Photo 4">
+    <img src="https://source.unsplash.com/400x300/?old,photo" alt="Photo 5">
+    <img src="https://source.unsplash.com/400x300/?collection,misc" alt="Photo 6">
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Preview">
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const imgs = document.querySelectorAll('.photo-grid img');
+    const lightboxImg = lightbox.querySelector('img');
+
+    imgs.forEach(img => {
+      img.addEventListener('click', () => {
+        lightbox.classList.add('active');
+        lightboxImg.src = img.src;
+      });
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+      lightboxImg.src = '';
+    });
+  </script>
+</body>
+</html>
