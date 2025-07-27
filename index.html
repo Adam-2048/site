@@ -1,90 +1,284 @@
-<!DOCTYPE html>
-<html lang="en">
+Home<!DOCTYPE html>
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Adam's Fun Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adam’s Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --bg-color: #f0f0f0;
-      --text-color: #111;
-      --link-color: #0077cc;
+    /* Pixel pattern background by CSS from https://bennettfeely.com/css-patterns/#checkerboard */
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background:
+        linear-gradient(45deg, #e8f1f2 25%, transparent 25%) -10px 0,
+        linear-gradient(-45deg, #e8f1f2 25%, transparent 25%) -10px 0,
+        linear-gradient(45deg, transparent 75%, #b5d3d9 75%),
+        linear-gradient(-45deg, transparent 75%, #b5d3d9 75%);
+      background-size: 20px 20px;
+      background-repeat: repeat;
+      color: #222;
+      padding-top: 60px;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
     body.dark {
-      --bg-color: #121212;
-      --text-color: #eee;
-      --link-color: #66ccff;
+      background:
+        linear-gradient(45deg, #191919 25%, transparent 25%) -10px 0,
+        linear-gradient(-45deg, #191919 25%, transparent 25%) -10px 0,
+        linear-gradient(45deg, transparent 75%, #333 75%),
+        linear-gradient(-45deg, transparent 75%, #333 75%);
+      color: #eee;
     }
 
-    body {
-      margin: 0;
-      padding: 2em;
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      transition: background 0.3s, color 0.3s;
+    :root {
+      --accent1: #ff6f61;  /* coral */
+      --accent2: #f9d71c;  /* bright yellow */
+      --accent3: #1abc9c;  /* teal */
+      --card-bg: rgba(255 255 255 / 0.85);
+      --card-bg-dark: rgba(30 30 30 / 0.85);
+      --shadow-light: rgba(0 0 0 / 0.1);
+      --shadow-dark: rgba(0 0 0 / 0.7);
+      --button-fg: #111;
+      --button-bg: var(--accent1);
+      --button-hover-bg: #ff3a2d;
     }
 
-    h1 {
-      font-size: 2.5rem;
+    body.dark {
+      --card-bg: var(--card-bg-dark);
+      --shadow: var(--shadow-dark);
+      --button-fg: #eee;
+      --button-bg: var(--accent3);
+      --button-hover-bg: #0f7f71;
     }
 
-    a {
-      color: var(--link-color);
-      text-decoration: none;
-      font-size: 1.2rem;
-      display: block;
-      margin: 0.5em 0;
-    }
-
-    .toggle-button {
+    header {
       position: fixed;
-      top: 1em;
-      right: 1em;
-      padding: 0.5em 1em;
-      background: var(--link-color);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
+      top: 0;
+      width: 100%;
+      background:
+        repeating-linear-gradient(
+          45deg,
+          #222 0,
+          #222 2px,
+          #333 2px,
+          #333 4px
+        );
+      border-bottom: 4px solid var(--accent1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      box-shadow: 0 4px 6px var(--shadow-light);
+      z-index: 1000;
+      color: #eee;
+    }
+
+    .logo {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      color: var(--accent1);
+      user-select: none;
+    }
+
+    nav a {
+      color: #eee;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      user-select: none;
+      position: relative;
+      transition: color 0.25s ease;
+    }
+
+    nav a::after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 3px;
+      background: var(--accent2);
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: var(--accent2);
+      outline: none;
+    }
+    nav a:hover::after,
+    nav a:focus::after {
+      width: 100%;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 2.5rem auto 3rem;
+      padding: 0 1.25rem;
+      min-height: 80vh;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px var(--shadow-light);
+      margin-bottom: 2.5rem;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      border: 3px solid transparent;
+      cursor: default;
+      user-select: none;
+    }
+
+    body.dark .card {
+      box-shadow: 0 8px 24px var(--shadow-dark);
+      border-color: var(--accent3);
+    }
+
+    .card:hover,
+    .card:focus-within {
+      background-color: rgba(255 255 255 / 0.95);
+      box-shadow: 0 14px 36px var(--shadow-dark);
+      border-color: var(--accent2);
+    }
+
+    body.dark .card:hover,
+    body.dark .card:focus-within {
+      background-color: rgba(30 30 30 / 1);
+      border-color: var(--accent2);
+      box-shadow: 0 14px 36px var(--accent2);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.5rem;
+      color: var(--accent3);
+      margin-bottom: 0.5rem;
+      user-select: none;
+    }
+
+    .card p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: inherit;
+      margin-bottom: 1.25rem;
+    }
+
+    .btn-link {
+      display: inline-block;
+      background: var(--button-bg);
+      color: var(--button-fg);
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 16px var(--shadow-light);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      font-size: 1.1rem;
+      font-family: 'Roboto', sans-serif;
       cursor: pointer;
-      transition: background 0.3s;
     }
 
-    .toggle-button:hover {
-      background: #005fa3;
+    .btn-link:hover,
+    .btn-link:focus {
+      background: var(--button-hover-bg);
+      box-shadow: 0 10px 20px var(--button-hover-bg);
+      outline: none;
     }
 
-    .content {
-      max-width: 600px;
-      margin: auto;
+    footer {
+      text-align: center;
+      opacity: 0.5;
+      margin: 3rem auto 1rem;
+      font-size: 1rem;
+      user-select: none;
+      font-weight: 600;
+      color: var(--accent1);
+    }
+
+    /* Dark mode toggle button */
+    .toggle-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--button-bg);
+      border: none;
+      border-radius: 12px;
+      padding: 0.5rem 1.25rem;
+      color: var(--button-fg);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 16px var(--shadow-light);
+      transition: background 0.3s, box-shadow 0.3s;
+      z-index: 1100;
+      user-select: none;
+      font-size: 1.15rem;
+    }
+    .toggle-btn:hover,
+    .toggle-btn:focus {
+      background: var(--button-hover-bg);
+      box-shadow: 0 10px 20px var(--button-hover-bg);
+      outline: none;
     }
   </style>
 </head>
 <body>
-  <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+  <header>
+    <div class="logo">ADAM’S RETRO HUB</div>
+    <nav>
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="games.html">Games</a>
+      <a href="tools.html">Tools</a>
+      <a href="projects.html">Projects</a>
+    </nav>
+  </header>
 
-  <div class="content">
-    <h1>Welcome to Adam's Site</h1>
-    <p>This is my personal internet playground. More stuff coming soon.</p>
+  <button class="toggle-btn" aria-label="Toggle Dark Mode">🌓</button>
 
-    <h2>Projects</h2>
-    <a href="projects/project1.html">🔗 Project 1</a>
-    <a href="projects/project2.html">🔗 Project 2</a>
-    <a href="projects/whatever.html">🔗 Something Cool</a>
-  </div>
+  <main>
+    <section class="card" tabindex="0">
+      <h2>🎮 Pixel Blaster</h2>
+      <p>A classic shooter made in JavaScript with vibrant 8-bit sounds.</p>
+      <a href="games.html" class="btn-link">Play</a>
+    </section>
+
+    <section class="card" tabindex="0">
+      <h2>🧮 Calc Fami</h2>
+      <p>Old-school pixel calculator, just for fun and style.</p>
+      <a href="tools.html" class="btn-link">Try It</a>
+    </section>
+
+    <section class="card" tabindex="0">
+      <h2>📜 About</h2>
+      <p>This site is my colourful, retro-flavoured playground. More coming soon!</p>
+      <a href="projects.html" class="btn-link">See Projects</a>
+    </section>
+  </main>
+
+  <footer>
+    Ⓒ 2025 Adam — Made with love & pixels
+  </footer>
 
   <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark');
-      // Optionally: save preference
-      localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+    const toggleBtn = document.querySelector('.toggle-btn');
+    const body = document.body;
+
+    if (localStorage.getItem('darkMode') === 'true') {
+      body.classList.add('dark');
     }
 
-    // Load saved mode
-    if (localStorage.getItem('darkMode') === 'true') {
-      document.body.classList.add('dark');
-    }
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      localStorage.setItem('darkMode', body.classList.contains('dark'));
+    });
   </script>
 </body>
 </html>
