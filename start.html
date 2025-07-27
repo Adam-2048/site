@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Start - Adam's Digital Playground</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --fg: #f4f4f4;
+      --accent: #b3323c;
+      --card-bg: #1f1f1f;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 1rem;
+    }
+
+    .logo {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+
+    .clock {
+      font-size: 4rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .bits {
+      font-size: 1rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><a href="index.html" style="color: var(--accent); text-decoration: none;">&larr; Home</a></div>
+  </header>
+
+  <div class="clock" id="clock">--:--:--</div>
+  <div class="bits">Loading something wonderful...</div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString();
+      document.getElementById('clock').textContent = time;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>
