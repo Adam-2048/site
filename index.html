@@ -1,284 +1,229 @@
-Home<!DOCTYPE html>
-<html lang="en" >
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Adam’s Website</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adam's Digital Playground</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Pixel pattern background by CSS from https://bennettfeely.com/css-patterns/#checkerboard */
+    :root {
+      --bg: #1a1a1a;
+      --fg: #f4f4f4;
+      --accent: #b3323c;
+      --soft-accent: #ff8a8a;
+      --card-bg: #262626;
+      --button-bg: #111;
+      --button-border: #b3323c;
+    }
+
+    :root.light-theme {
+      --bg: #fff6f0;
+      --fg: #222;
+      --accent: #c73232;
+      --soft-accent: #ffa8a8;
+      --card-bg: #fefefe;
+      --button-bg: #f0e6e6;
+      --button-border: #c73232;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background:
-        linear-gradient(45deg, #e8f1f2 25%, transparent 25%) -10px 0,
-        linear-gradient(-45deg, #e8f1f2 25%, transparent 25%) -10px 0,
-        linear-gradient(45deg, transparent 75%, #b5d3d9 75%),
-        linear-gradient(-45deg, transparent 75%, #b5d3d9 75%);
-      background-size: 20px 20px;
-      background-repeat: repeat;
-      color: #222;
-      padding-top: 60px;
-      transition: background-color 0.4s ease, color 0.4s ease;
-    }
-
-    body.dark {
-      background:
-        linear-gradient(45deg, #191919 25%, transparent 25%) -10px 0,
-        linear-gradient(-45deg, #191919 25%, transparent 25%) -10px 0,
-        linear-gradient(45deg, transparent 75%, #333 75%),
-        linear-gradient(-45deg, transparent 75%, #333 75%);
-      color: #eee;
-    }
-
-    :root {
-      --accent1: #ff6f61;  /* coral */
-      --accent2: #f9d71c;  /* bright yellow */
-      --accent3: #1abc9c;  /* teal */
-      --card-bg: rgba(255 255 255 / 0.85);
-      --card-bg-dark: rgba(30 30 30 / 0.85);
-      --shadow-light: rgba(0 0 0 / 0.1);
-      --shadow-dark: rgba(0 0 0 / 0.7);
-      --button-fg: #111;
-      --button-bg: var(--accent1);
-      --button-hover-bg: #ff3a2d;
-    }
-
-    body.dark {
-      --card-bg: var(--card-bg-dark);
-      --shadow: var(--shadow-dark);
-      --button-fg: #eee;
-      --button-bg: var(--accent3);
-      --button-hover-bg: #0f7f71;
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      transition: background-color 0.4s, color 0.4s;
     }
 
     header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background:
-        repeating-linear-gradient(
-          45deg,
-          #222 0,
-          #222 2px,
-          #333 2px,
-          #333 4px
-        );
-      border-bottom: 4px solid var(--accent1);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.75rem 1.5rem;
-      box-shadow: 0 4px 6px var(--shadow-light);
-      z-index: 1000;
-      color: #eee;
+      padding: 1rem 2rem;
+      background: var(--card-bg);
+      border-bottom: 1px solid #444;
+      position: sticky;
+      top: 0;
+      z-index: 999;
     }
 
     .logo {
       font-family: 'Press Start 2P', monospace;
-      font-size: 1.1rem;
-      letter-spacing: 3px;
-      color: var(--accent1);
-      user-select: none;
+      font-size: 1rem;
+      color: var(--accent);
     }
 
     nav a {
-      color: #eee;
+      color: var(--fg);
       text-decoration: none;
       margin-left: 2rem;
-      font-weight: 600;
-      font-size: 1.1rem;
-      user-select: none;
-      position: relative;
-      transition: color 0.25s ease;
+      font-weight: bold;
+      transition: color 0.3s;
     }
 
-    nav a::after {
-      content: '';
-      display: block;
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 0;
-      height: 3px;
-      background: var(--accent2);
-      transition: width 0.3s ease;
-      border-radius: 2px;
+    nav a:hover {
+      color: var(--accent);
     }
 
-    nav a:hover,
-    nav a:focus {
-      color: var(--accent2);
-      outline: none;
+    .toggle {
+      background: var(--button-bg);
+      border: 2px solid var(--button-border);
+      color: var(--accent);
+      padding: 0.4rem 0.8rem;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-left: 2rem;
+      box-shadow: 2px 2px 0 var(--accent);
     }
-    nav a:hover::after,
-    nav a:focus::after {
-      width: 100%;
+
+    .toggle:hover {
+      background: var(--accent);
+      color: var(--bg);
     }
 
     main {
-      max-width: 960px;
-      margin: 2.5rem auto 3rem;
-      padding: 0 1.25rem;
-      min-height: 80vh;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: var(--soft-accent);
+      font-size: 1.2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
     }
 
     .card {
       background: var(--card-bg);
       padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 8px 24px var(--shadow-light);
-      margin-bottom: 2.5rem;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      border: 3px solid transparent;
-      cursor: default;
-      user-select: none;
+      border-radius: 1rem;
+      border: 1px solid #444;
+      transition: transform 0.2s, box-shadow 0.2s;
+      background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');
     }
 
-    body.dark .card {
-      box-shadow: 0 8px 24px var(--shadow-dark);
-      border-color: var(--accent3);
-    }
-
-    .card:hover,
-    .card:focus-within {
-      background-color: rgba(255 255 255 / 0.95);
-      box-shadow: 0 14px 36px var(--shadow-dark);
-      border-color: var(--accent2);
-    }
-
-    body.dark .card:hover,
-    body.dark .card:focus-within {
-      background-color: rgba(30 30 30 / 1);
-      border-color: var(--accent2);
-      box-shadow: 0 14px 36px var(--accent2);
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(215, 38, 56, 0.2);
     }
 
     .card h2 {
       margin-top: 0;
+      color: var(--accent);
       font-family: 'Press Start 2P', monospace;
-      font-size: 1.5rem;
-      color: var(--accent3);
-      margin-bottom: 0.5rem;
-      user-select: none;
+      font-size: 1.1rem;
     }
 
     .card p {
-      font-size: 1.1rem;
-      line-height: 1.5;
-      color: inherit;
-      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
     }
 
-    .btn-link {
+    .card a {
       display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
       background: var(--button-bg);
-      color: var(--button-fg);
-      padding: 0.75rem 1.5rem;
-      border-radius: 12px;
-      font-weight: 700;
+      color: var(--accent);
+      border: 2px solid var(--button-border);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.75rem;
       text-decoration: none;
-      box-shadow: 0 8px 16px var(--shadow-light);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
-      font-size: 1.1rem;
-      font-family: 'Roboto', sans-serif;
-      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--accent);
     }
 
-    .btn-link:hover,
-    .btn-link:focus {
-      background: var(--button-hover-bg);
-      box-shadow: 0 10px 20px var(--button-hover-bg);
-      outline: none;
+    .card a:hover {
+      background: var(--accent);
+      color: var(--bg);
     }
 
     footer {
       text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
       opacity: 0.5;
-      margin: 3rem auto 1rem;
-      font-size: 1rem;
-      user-select: none;
-      font-weight: 600;
-      color: var(--accent1);
     }
 
-    /* Dark mode toggle button */
-    .toggle-btn {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: var(--button-bg);
-      border: none;
-      border-radius: 12px;
-      padding: 0.5rem 1.25rem;
-      color: var(--button-fg);
-      font-family: 'Roboto', sans-serif;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 8px 16px var(--shadow-light);
-      transition: background 0.3s, box-shadow 0.3s;
-      z-index: 1100;
-      user-select: none;
-      font-size: 1.15rem;
-    }
-    .toggle-btn:hover,
-    .toggle-btn:focus {
-      background: var(--button-hover-bg);
-      box-shadow: 0 10px 20px var(--button-hover-bg);
-      outline: none;
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">ADAM’S RETRO HUB</div>
+    <div class="logo">ADAM'S HUB</div>
     <nav>
-      <a href="index.html" aria-current="page">Home</a>
-      <a href="games.html">Games</a>
-      <a href="tools.html">Tools</a>
-      <a href="projects.html">Projects</a>
+      <a href="#">Home</a>
+      <a href="#">Projects</a>
+      <a href="#">About</a>
+      <button class="toggle" onclick="toggleTheme()">💡 Toggle Theme</button>
     </nav>
   </header>
 
-  <button class="toggle-btn" aria-label="Toggle Dark Mode">🌓</button>
-
   <main>
-    <section class="card" tabindex="0">
-      <h2>🎮 Pixel Blaster</h2>
-      <p>A classic shooter made in JavaScript with vibrant 8-bit sounds.</p>
-      <a href="games.html" class="btn-link">Play</a>
+    <section class="hero">
+      <h1>Welcome to My Digital Playground</h1>
+      <p>Retro-inspired experiments, tools & fun projects</p>
     </section>
 
-    <section class="card" tabindex="0">
-      <h2>🧮 Calc Fami</h2>
-      <p>Old-school pixel calculator, just for fun and style.</p>
-      <a href="tools.html" class="btn-link">Try It</a>
-    </section>
-
-    <section class="card" tabindex="0">
-      <h2>📜 About</h2>
-      <p>This site is my colourful, retro-flavoured playground. More coming soon!</p>
-      <a href="projects.html" class="btn-link">See Projects</a>
+    <section class="grid">
+      <div class="card">
+        <h2>🎮 Pixel Blaster</h2>
+        <p>Retro-style arcade shooter built in JavaScript.</p>
+        <a href="#">Play Game</a>
+      </div>
+      <div class="card">
+        <h2>🧮 FamiCalc</h2>
+        <p>An 8-bit inspired calculator, just for fun.</p>
+        <a href="#">Try It</a>
+      </div>
+      <div class="card">
+        <h2>📼 Retro Library</h2>
+        <p>Explore nostalgic references, pixels and sounds.</p>
+        <a href="#">Dive In</a>
+      </div>
     </section>
   </main>
 
   <footer>
-    Ⓒ 2025 Adam — Made with love & pixels
+    &copy; 2025 Adam. Made with pixels & passion.
   </footer>
 
   <script>
-    const toggleBtn = document.querySelector('.toggle-btn');
-    const body = document.body;
-
-    if (localStorage.getItem('darkMode') === 'true') {
-      body.classList.add('dark');
+    function toggleTheme() {
+      const root = document.documentElement;
+      const isLight = root.classList.toggle('light-theme');
+      const comment = isLight
+        ? "You've chosen the bright side. Bold choice."
+        : "Back in the dark — just how the pixels like it.";
+      alert(comment);
     }
-
-    toggleBtn.addEventListener('click', () => {
-      body.classList.toggle('dark');
-      localStorage.setItem('darkMode', body.classList.contains('dark'));
-    });
   </script>
 </body>
 </html>
