@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adam's Digital Playground</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a1a1a;
+      --fg: #f4f4f4;
+      --accent: #b3323c;
+      --soft-accent: #ff8a8a;
+      --card-bg: #262626;
+      --button-bg: #111;
+      --button-border: #b3323c;
+    }
+
+    :root.light-theme {
+      --bg: #fff6f0;
+      --fg: #222;
+      --accent: #c73232;
+      --soft-accent: #ffa8a8;
+      --card-bg: #fefefe;
+      --button-bg: #f0e6e6;
+      --button-border: #c73232;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--card-bg);
+      border-bottom: 1px solid #444;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .logo {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    nav a {
+      color: var(--fg);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .toggle {
+      background: var(--button-bg);
+      border: 2px solid var(--button-border);
+      color: var(--accent);
+      padding: 0.4rem 0.8rem;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-left: 2rem;
+      box-shadow: 2px 2px 0 var(--accent);
+    }
+
+    .toggle:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: var(--soft-accent);
+      font-size: 1.2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 1rem;
+      border: 1px solid #444;
+      transition: transform 0.2s, box-shadow 0.2s;
+      background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(215, 38, 56, 0.2);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: var(--accent);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: var(--button-bg);
+      color: var(--accent);
+      border: 2px solid var(--button-border);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.75rem;
+      text-decoration: none;
+      box-shadow: 2px 2px 0 var(--accent);
+    }
+
+    .card a:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">ADAM'S HUB</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="start.html">Start</a>
+      <a href="#">Projects</a>
+      <a href="#">About</a>
+      <button class="toggle" onclick="toggleTheme()">💡 Toggle Theme</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Welcome to My Digital Playground</h1>
+      <p>Retro-inspired experiments, tools & fun projects</p>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>🎮 Pixel Blaster</h2>
+        <p>Retro-style arcade shooter built in JavaScript.</p>
+        <a href="#">Play Game</a>
+      </div>
+      <div class="card">
+        <h2>🧮 FamiCalc</h2>
+        <p>An 8-bit inspired calculator, just for fun.</p>
+        <a href="#">Try It</a>
+      </div>
+      <div class="card">
+        <h2>📼 Retro Library</h2>
+        <p>Explore nostalgic references, pixels and sounds.</p>
+        <a href="#">Dive In</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Adam. Made with pixels & passion.
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const root = document.documentElement;
+      const isLight = root.classList.toggle('light-theme');
+      const comment = isLight
+        ? "You've chosen the bright side. Bold choice."
+        : "Back in the dark — just how the pixels like it.";
+      alert(comment);
+    }
+  </script>
+</body>
+</html>
