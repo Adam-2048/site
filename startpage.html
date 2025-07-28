@@ -25,6 +25,7 @@
       align-items: center;
       justify-content: flex-start;
       height: 100vh;
+      background-image: url('background.jpg');
       background-size: cover;
       background-position: center;
       text-align: center;
@@ -154,17 +155,6 @@
   </div>
 
   <script>
-    const backgrounds = [
-      'nature', 'space', 'mountains', 'forest', 'ocean', 'architecture', 'cityscape'
-    ];
-
-    function setDailyBackground() {
-      const today = new Date();
-      const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-      const topic = backgrounds[seed % backgrounds.length];
-      document.body.style.backgroundImage = "https://www.reddit.com/media?url=https%3A%2F%2Fi.redd.it%2Fu3e2l1jt0ar61.jpg";
-    }
-
     function updateTimeAndGreeting() {
       const now = new Date();
       const hours = now.getHours();
@@ -193,7 +183,6 @@
       }
     }
 
-    setDailyBackground();
     updateTimeAndGreeting();
     setInterval(updateTimeAndGreeting, 60000);
     getWeather();
