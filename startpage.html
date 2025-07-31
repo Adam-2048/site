@@ -3,189 +3,177 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StartPage - Adam</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@700&family=Raleway:wght@400;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+  <title>StartPageDefault</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@700&family=Raleway:wght@400;700&family=Roboto+Mono:wght@500&family=Quicksand:wght@500&family=Space+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #1a1a1a;
+      --bg: #181818;
       --fg: #f4f4f4;
-      --accent: #b3323c;
-      --card-bg: #262626;
-      --flip-bg: #111;
-      --flip-fg: #fff;
+      --accent: #d94b3d;
+      --card-bg: #222;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: var(--fg);
+      font-family: 'Quicksand', sans-serif;
+      height: 100%;
     }
 
     body {
-      margin: 0;
-      background-color: var(--bg);
-      color: var(--fg);
-      font-family: 'Raleway', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      height: 100vh;
-      background-image: url('background.jpg');
-      background-size: cover;
-      background-position: center;
-      text-align: center;
-      padding: 2rem;
-      transition: background-image 1s ease-in-out;
+      min-height: 100vh;
     }
 
-    header {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: rgba(0, 0, 0, 0.6);
-    }
-
-    .logo {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1rem;
-      color: var(--accent);
-    }
-
-    nav a {
-      color: var(--fg);
-      text-decoration: none;
-      margin-left: 2rem;
-      font-weight: bold;
-    }
-
-    .greeting {
-      font-size: 2rem;
-      margin: 1rem 0;
+    h1 {
       font-family: 'Raleway', sans-serif;
+      font-size: 3rem;
+      text-align: center;
+      margin-top: 3rem;
     }
 
-    .flip-clock {
-      font-family: 'Roboto Mono', monospace;
-      background: var(--flip-bg);
-      color: var(--flip-fg);
-      padding: 1.5rem 2.5rem;
-      font-size: 5rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 20px #000000aa;
-      margin: 1.5rem 0;
-      letter-spacing: 0.1em;
-      display: inline-block;
-      transition: all 0.3s ease-in-out;
+    .clock {
+      font-family: 'Space Mono', monospace;
+      font-size: 6rem;
+      margin: 1rem 0;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
     }
 
-    .searchbar {
-      margin-top: 2rem;
+    .search-bar {
+      margin: 2rem 0;
     }
 
-    .searchbar input {
-      padding: 0.75rem;
-      width: 300px;
-      font-size: 1rem;
-      border-radius: 0.5rem;
+    .search-bar input[type="text"] {
+      padding: 0.8rem 1.2rem;
+      font-size: 1.1rem;
+      width: 500px;
+      max-width: 90vw;
       border: none;
-    }
-
-    .shortcuts {
-      margin-top: 2rem;
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .shortcuts a {
-      background: rgba(0, 0, 0, 0.7);
-      color: var(--fg);
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-
-    .shortcuts a:hover {
-      background: var(--accent);
+      border-radius: 30px;
+      outline: none;
+      font-family: 'Quicksand', sans-serif;
     }
 
     .widgets {
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 1200px;
       margin-top: 3rem;
+      gap: 2rem;
+    }
+
+    .left-widgets, .right-widgets {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
-      align-items: center;
+      gap: 2rem;
+      flex: 1;
     }
 
     .widget {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 1rem 2rem;
+      background: rgba(0,0,0,1);
+      padding: 1.5rem;
       border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      min-width: 250px;
+    }
+
+    .widget h2 {
+      margin-top: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .shortcut-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .shortcut-buttons a {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
       color: var(--fg);
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
       font-size: 1.2rem;
+      font-weight: bold;
+      transition: background 0.3s;
+      text-align: center;
+    }
+
+    .shortcut-buttons a:hover {
+      background: rgba(255,255,255,0.2);
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo"><a href="index.html" style="color:inherit;text-decoration:none;">ADAM'S HOMEPAGE</a></div>
-  </header>
+  <h1 id="greeting">Welcome, Adam</h1>
+  <div class="clock" id="clock">--:--</div>
 
-  <div class="greeting" id="greeting">Hello, Adam.</div>
-  <div class="flip-clock" id="clock">00:00</div>
-
-  <div class="searchbar">
+  <div class="search-bar">
     <form action="https://www.google.com/search" method="get">
       <input type="text" name="q" placeholder="Search Google...">
     </form>
   </div>
 
-  <div class="shortcuts">
-    <a href="https://mail.google.com" target="_blank">Gmail</a>
-    <a href="https://calendar.google.com" target="_blank">Calendar</a>
-    <a href="https://classroom.google.com/u/1/a/not-turned-in/all" target="_blank">Google Classroom</a>
-    <a href="https://www.netflix.com/browse" target="_blank">Netflix</a>
-    <a href="https://github.com" target="_blank">GitHub</a>
-    <a href="https://chat.openai.com" target="_blank">ChatGPT</a>
-  </div>
-
   <div class="widgets">
-    <div class="widget" id="weather">Loading weather...</div>
-    <div class="widget" id="todo">To-do:<br>- Finish this startpage<br>- Get the gallery and website working<br>- Apply login features through cloudflare<br>- Revise for November Mocks</div>
+    <div class="left-widgets">
+      <div class="widget shortcut-buttons">
+        <a href="https://mail.google.com" target="_blank">Gmail</a>
+        <a href="https://classroom.google.com/u/1/h">Google Classroom</a>
+        <a href="https://www.netflix.com/browse">Netflix</a>
+        <a href="https://github.com" target="_blank">GitHub</a>
+        <a href="https://chat.openai.com" target="_blank">ChatGPT</a>
+        <a href="index.html">Website Home</a>
+      </div>
+    </div>
+    <div class="right-widgets">
+      <div class="widget">
+        <h2>To-Do</h2>
+        <ul>
+          <li>Check email</li>
+          <li>Push latest gallery update</li>
+          <li>Backup website</li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h2>Weather</h2>
+        <p>Fetching...</p>
+      </div>
+    </div>
   </div>
 
   <script>
-    function updateTimeAndGreeting() {
+    function updateClock() {
       const now = new Date();
-      const hours = now.getHours();
+      const hours = now.getHours().toString().padStart(2, '0');
       const minutes = now.getMinutes().toString().padStart(2, '0');
-      const displayHours = hours.toString().padStart(2, '0');
+      document.getElementById('clock').textContent = `${hours}:${minutes}`;
+
       const greeting = document.getElementById('greeting');
-
-      if (hours < 12) {
-        greeting.textContent = 'Good morning, Adam.';
-      } else if (hours < 18) {
-        greeting.textContent = 'Good afternoon, Adam.';
+      if (now.getHours() < 12) {
+        greeting.textContent = "Good morning, Adam";
+      } else if (now.getHours() < 18) {
+        greeting.textContent = "Good afternoon, Adam";
       } else {
-        greeting.textContent = 'Good evening, Adam.';
-      }
-
-      document.getElementById('clock').textContent = `${displayHours}:${minutes}`;
-    }
-
-    async function getWeather() {
-      try {
-        const response = await fetch('https://wttr.in/?format=1');
-        const weatherText = await response.text();
-        document.getElementById('weather').textContent = `Weather: ${weatherText}`;
-      } catch {
-        document.getElementById('weather').textContent = 'Weather: Unable to fetch';
+        greeting.textContent = "Good evening, Adam";
       }
     }
-
-    updateTimeAndGreeting();
-    setInterval(updateTimeAndGreeting, 60000);
-    getWeather();
+    setInterval(updateClock, 1000);
+    updateClock();
   </script>
 </body>
 </html>
