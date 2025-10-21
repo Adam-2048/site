@@ -10,7 +10,6 @@
   </style>
 <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Homepage - Adam</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -184,14 +183,12 @@
 </head>
 <body>
   <header>
-    <div class="logo">ADAM'S HOMEPAGE</div>
+    <div class="logo">Days Out Map</div>
     <nav>
       <a href="index.html">Home</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="startpage.html">Start</a>
       <a href="projects.html">Projects</a>
       <a href="about.html">About</a>
-      <button class="toggle" onclick="toggleTheme()">💡 Toggle Theme</button>
+      <button class="toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
     </nav>
   </header>
   <div id="map"></div>
@@ -213,10 +210,6 @@
     function toggleTheme() {
       const root = document.documentElement;
       const isLight = root.classList.toggle('light-theme');
-      const comment = isLight
-        ? "You've chosen the bright side. Bold choice."
-        : "Back in the dark — just how the pixels like it.";
-      alert(comment);
     }
   </script>
 </body>
