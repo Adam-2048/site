@@ -211,6 +211,57 @@
       const root = document.documentElement;
       const isLight = root.classList.toggle('light-theme');
     }
+    // 1. Distance function
+function getDistanceKm(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Radius of the earth in km
+  const toRad = deg => deg * (Math.PI / 180);
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+    Math.sin(dLon / 2) ** 2;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+// 2. Find nearest station
+function findNearestStation(attraction, stations) {
+  let nearest = null;
+  let minDist = Infinity;
+
+  stations.forEach(station => {
+    const dist = getDistanceKm(attraction.lat, attraction.lng, station.lat, station.long);
+    if (dist < minDist) {
+      minDist = dist;
+      nearest = { ...station, distanceKm: dist };
+    }
+  });
+
+  return nearest;
+}
+
+// 3. Load data and show markers
+Promise.all([
+  fetch('attractions.json').then(res => res.json()),
+  fetch('stations.json').then(res => res.json())
+]).then(([attractions, stations]) => {
+  
+  attractions.forEach(attraction => {
+    const nearest = findNearestStation(attraction, stations);
+    const popupHTML = `
+      <h3>${attraction.name}</h3>
+      <p><strong>Type:</strong> ${attraction.type.join(', ')}</p>
+      <p><strong>Memberships:</strong> ${attraction.memberships.join(', ')}</p>
+      <p><strong>Nearest station:</strong> ${nearest.name} (${nearest.distanceKm.toFixed(1)} km)</p>
+    `;
+
+    L.marker([attraction.lat, attraction.lng])
+      .addTo(map)
+      .bindPopup(popupHTML);
+  });
+
+});
   </script>
 </body>
 </html>
