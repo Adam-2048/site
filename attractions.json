@@ -1,0 +1,11 @@
+{
+  "name": "Amberley Museum",
+  "lat": 50.897738 ,
+  "lng": -0.539903,
+  "memberships": ["Blue Peter"],
+  "type": ["Museum", "Transport", "Local Heritage"],
+  "website": "https://www.amberleymuseum.co.uk/",
+  "image": "https://ichef.bbci.co.uk/childrens-responsive-ichef-live/976/childrens-binary-store/r/1x/cbbc/amberley-museum_1024x576.jpg",
+  "nearestStation": "Amberley"
+  "trainwebsite": "https://www.nationalrail.co.uk/destinations/trains-to-amberley/#O"
+}
