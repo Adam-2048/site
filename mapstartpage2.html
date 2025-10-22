@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.5" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-        :root {
+        :root.light-theme {
       --bg: #1a1a1a;
       --fg: #f4f4f4;
       --accent: #b3323c;
@@ -25,7 +25,7 @@
       --button-border: #157a18;
     }
 
-    :root.light-theme {
+    :root {
       --bg: #f6f6db;
       --fg: #222;
       --accent: #c73232;
@@ -191,9 +191,9 @@
   <header>
     <div class="logo">UK Days Out Map</div>
     <nav>
-      <a href="index.html">Website Home</a>
+      <a href="index.html">WebsiteHome</a>
       <a href="about.html">About</a>
-      <button class="toggle" onclick="toggleTheme()">Light Mode</button>
+      <button class="toggle" onclick="toggleTheme()">Light/Dark</button>
     </nav>
   </header>
   <div id="map"></div>
