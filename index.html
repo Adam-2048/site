@@ -190,8 +190,8 @@
 
   <main>
     <section class="hero">
-      <h1>Good Morning!</h1>
-      <p>This cost me £5 and so I feel I now have to make the most of it></p>
+      <h1 id="greeting">Welcome!</h1>
+      <p>This domain cost me £5. Now I feel I have to make the most of it.></p>
     </section>
 
     <section class="grid">
@@ -226,6 +226,23 @@
         : "Back in the dark — just how the pixels like it.";
       alert(comment);
     }
+    function updateClock() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      document.getElementById('clock').textContent = `${hours}:${minutes}`;
+
+      const greeting = document.getElementById('greeting');
+      if (now.getHours() < 12) {
+        greeting.textContent = "Good morning, Adam";
+      } else if (now.getHours() < 18) {
+        greeting.textContent = "Good afternoon, Adam";
+      } else {
+        greeting.textContent = "Good evening, Adam";
+      }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
   </script>
 </body>
 </html>
