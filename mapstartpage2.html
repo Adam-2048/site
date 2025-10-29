@@ -2,327 +2,121 @@
 <html>
 <head>
   <title>UK Days Out Map</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=0.5">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=0.5"/>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700&display=swap" rel="stylesheet"/>
+
   <style>
-    #map { height: 100vh; }
-  </style>
-<meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=0.5" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-        :root.light-theme {
-      --bg: #1a1a1a;
-      --fg: #f4f4f4;
-      --accent: #b3323c;
-      --soft-accent: #ff8a8a;
-      --accent: #157a18;
-      --soft-accent: #8cfa8f;
-      --card-bg: #262626;
-      --button-bg: #111;
-      --button-border: #b3323c;
-      --button-border: #157a18;
+    #map{height:100vh}
+    :root.light-theme{
+      --bg:#1a1a1a;--fg:#f4f4f4;--accent:#157a18;--soft-accent:#8cfa8f;
+      --card-bg:#262626;--button-bg:#111;--button-border:#157a18
     }
-
-    :root {
-      --bg: #f6f6db;
-      --fg: #222;
-      --accent: #c73232;
-      --soft-accent: #ffa8a8;
-      --accent: #157a18;
-      --soft-accent: #8cfa8f;
-      --card-bg: #f6f6db;
-      --button-bg: #f0e6e6;
-      --button-border: #c73232;
-      --button-border: #157a18;
+    :root{
+      --bg:#f6f6db;--fg:#222;--accent:#157a18;--soft-accent:#8cfa8f;
+      --card-bg:#f6f6db;--button-bg:#f0e6e6;--button-border:#157a18
     }
-    
-    * {
-      box-sizing: border-box;
+    *{box-sizing:border-box}
+    body{
+      margin:0;background:var(--bg);color:var(--fg);
+      font-family:'Inter',sans-serif;line-height:0.8;
+      transition:background-color .4s,color .4s
     }
-
-    body {
-      margin: 0;
-      background-color: var(--bg);
-      color: var(--fg);
-      font-family: 'Inter', sans-serif;
-      line-height: 0.8;
-      transition: background-color 0.4s, color 0.4s;
+    header{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:1rem 2rem;background:var(--card-bg);
+      border-bottom:1px solid #444;position:sticky;top:0;z-index:999
     }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: var(--card-bg);
-      border-bottom: 1px solid #444;
-      position: sticky;
-      top: 0;
-      z-index: 999;
+    .logo{
+      font-family:'Press Start 2P',monospace;
+      font-size:1rem;color:var(--accent)
     }
-
-    .logo {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 1rem;
-      color: var(--accent);
+    nav a{
+      color:var(--fg);text-decoration:none;margin-left:2rem;
+      font-weight:bold;transition:color .3s
     }
-
-    nav a {
-      color: var(--fg);
-      text-decoration: none;
-      margin-left: 2rem;
-      font-weight: bold;
-      transition: color 0.3s;
+    nav a:hover{color:var(--accent)}
+    .toggle{
+      background:var(--button-bg);border:2px solid var(--button-border);
+      color:var(--accent);padding:.3rem .6rem;
+      font-family:'Press Start 2P',monospace;font-size:.7rem;
+      cursor:pointer;transition:all .3s;margin-left:2rem;
+      box-shadow:2px 2px 0 var(--accent)
     }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    .toggle {
-      background: var(--button-bg);
-      border: 2px solid var(--button-border);
-      color: var(--accent);
-      padding: 0.3rem 0.6rem;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.7rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-left: 2rem;
-      box-shadow: 2px 2px 0 var(--accent);
-    }
-
-    .toggle:hover {
-      background: var(--accent);
-      color: var(--bg);
-    }
-
-    main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 1.5rem 0.75rem;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .hero p {
-      color: var(--soft-accent);
-      font-size: 1rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-
-    .card {
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 1rem;
-      border: 1px solid #444;
-      transition: transform 0.2s, box-shadow 0.2s;
-      background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(215, 38, 56, 0.2);
-    }
-
-    .card h2 {
-      margin-top: 0;
-      color: var(--accent);
-      font-family: 'Pr', monospace;
-      font-size: 1.1rem;
-    }
-
-    .card p {
-      font-size: 0.95rem;
-    }
-
-    .card a {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background: var(--button-bg);
-      color: var(--accent);
-      border: 2px solid var(--button-border);
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.75rem;
-      text-decoration: none;
-      box-shadow: 2px 2px 0 var(--accent);
-    }
-
-    .card a:hover {
-      background: var(--accent);
-      color: var(--bg);
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.8rem;
-      opacity: 0.5;
-    }
-
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-      .hero p {
-        font-size: 1rem;
-      }
-    }
+    .toggle:hover{background:var(--accent);color:var(--bg)}
   </style>
 </head>
+
 <body>
-  <header>
-    <div class="logo">UK Days Out Map</div>
-    <nav>
-      <a href="index.html">WebsiteHome</a>
-      <a href="about.html">About</a>
-      <button class="toggle" onclick="toggleTheme()">Light/Dark</button>
-    </nav>
-  </header>
-  <div id="map"></div>
+<header>
+  <div class="logo">UK Days Out Map</div>
+  <nav>
+    <a href="index.html">WebsiteHome</a>
+    <a href="about.html">About</a>
+    <button class="toggle" onclick="toggleTheme()">Light/Dark</button>
+  </nav>
+</header>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script>
-    const map = L.map('map').setView([54.5, -3.5], 6);
+<div id="map"></div>
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    // Example marker
-    L.marker([53.36923, -1.49044]).addTo(map)
-      .bindPopup('"Dead Centre" of Sheffield')
-      .openPopup(popupHTML);
-  </script>
-  <script>
-    function toggleTheme() {
-      const root = document.documentElement;
-      const isLight = root.classList.toggle('light-theme');
+<script>
+const map=L.map('map').setView([54.5,-3.5],6);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// sample marker
+L.marker([53.36923,-1.49044]).addTo(map)
+  .bindPopup('"Dead Centre" of Sheffield');
+
+function toggleTheme(){
+  document.documentElement.classList.toggle('light-theme');
+}
+
+function getDistanceKm(a1,o1,a2,o2){
+  const R=6371;
+  const r=d=>d*Math.PI/180;
+  const dA=r(a2-a1);
+  const dO=r(o2-o1);
+  const x=Math.sin(dA/2)**2+
+    Math.cos(r(a1))*Math.cos(r(a2))*Math.sin(dO/2)**2;
+  const c=2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+  return R*c;
+}
+
+function findNearestStation(a,stations){
+  let out=null;
+  let best=Infinity;
+  stations.forEach(s=>{
+    const d=getDistanceKm(a.lat,a.lng,s.lat,s.long);
+    if(d<best){
+      best=d;
+      out={...s,distanceKm:d};
     }
-      // 1. Distance function
-    function getDistanceKm(lat1, lon1, lat2, lon2) {
-      const R = 6371; // Radius of the earth in km
-      const toRad = deg => deg * (Math.PI / 180);
-      const dLat = toRad(lat2 - lat1);
-      const dLon = toRad(lon2 - lon1);
-      const a =
-      Math.sin(dLat / 2) ** 2 +
-      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-      Math.sin(dLon / 2) ** 2;
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      return R * c;
-    }
+  });
+  return out;
+}
 
-    // 2. Find nearest station
-    function findNearestStation(attraction, stations) {
-      let nearest = null;
-      let minDist = Infinity;
-
-      stations.forEach(station => {
-        const dist = getDistanceKm(attraction.lat, attraction.lng, station.lat, station.long);
-        if (dist < minDist) {
-          minDist = dist;
-          nearest = { ...station, distanceKm: dist };
-        }
-     });
-
-      return nearest;
-    }
-
-    // 3. Load data and show markers
-    Promise.all([
-      fetch('attractions.json').then(res => res.json()),
-      fetch('stations.json').then(res => res.json())
-    ]).then(([attractions, stations]) => {
-  
-      attractions.forEach(attraction => {
-        const nearest = findNearestStation(attraction, stations);
-        const popupHTML = `
-          <h3>${attraction.name}</h3>
-          <p><strong>Type:</strong> ${attraction.type.join(', ')}</p>
-          <p><strong>Memberships:</strong> ${attraction.memberships.join(', ')}</p>
-          <p><strong>Nearest station:</strong> ${nearest.name} (${nearest.distanceKm.toFixed(1)} km)</p>
-        `;
-
-        L.marker([attraction.lat, attraction.lng])
-          .addTo(map)
-          .bindPopup(popupHTML);
-      });
-
-    });
-  </script>
-  <script>
-        }
-      // 1. Distance function
-    function getDistanceKm(lat1, lon1, lat2, lon2) {
-      const R = 6371; // Radius of the earth in km
-      const toRad = deg => deg * (Math.PI / 180);
-      const dLat = toRad(lat2 - lat1);
-      const dLon = toRad(lon2 - lon1);
-      const a =
-      Math.sin(dLat / 2) ** 2 +
-      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-      Math.sin(dLon / 2) ** 2;
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      return R * c;
-    }
-
-    // 2. Find nearest station
-    function findNearestStation(attraction, stations) {
-      let nearest = null;
-      let minDist = Infinity;
-
-      stations.forEach(station => {
-        const dist = getDistanceKm(attraction.lat, attraction.lng, station.lat, station.long);
-        if (dist < minDist) {
-          minDist = dist;
-          nearest = { ...station, distanceKm: dist };
-        }
-     });
-
-      return nearest;
-    }
-
-    // 3. Load data and show markers
-    Promise.all([
-      fetch('attractions.json').then(res => res.json()),
-      fetch('stations.json').then(res => res.json())
-    ]).then(([attractions, stations]) => {
-  
-      attractions.forEach(attraction => {
-        const nearest = findNearestStation(attraction, stations);
-        const popupHTML = `
-          <h3>${attraction.name}</h3>
-          <p><strong>Type:</strong> ${attraction.type.join(', ')}</p>
-          <p><strong>Memberships:</strong> ${attraction.memberships.join(', ')}</p>
-          <p><strong>Nearest station:</strong> ${nearest.name} (${nearest.distanceKm.toFixed(1)} km)</p>
-        `;
-
-        L.marker([attraction.lat, attraction.lng])
-          .addTo(map)
-          .bindPopup(popupHTML);
-      });
-
-    });
-  </script>
-    
-    
+Promise.all([
+  fetch('attractions.json').then(r=>r.json()),
+  fetch('stations.json').then(r=>r.json())
+]).then(([attractions,stations])=>{
+  attractions.forEach(a=>{
+    const ns=findNearestStation(a,stations);
+    const html=
+      `<h3>${a.name}</h3>
+      <p><b>Type:</b> ${a.type.join(', ')}</p>
+      <p><b>Memberships:</b> ${a.memberships.join(', ')}</p>
+      <p><b>Nearest station:</b> ${ns.name} (${ns.distanceKm.toFixed(1)} km)</p>`;
+    L.marker([a.lat,a.lng]).addTo(map).bindPopup(html);
+  });
+});
+</script>
 </body>
 </html>
