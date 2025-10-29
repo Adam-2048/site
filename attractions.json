@@ -1,12 +1,40 @@
-{
-  "name": "Amberley Museum",
-  "lat": 50.897738 ,
-  "lng": -0.539903,
-  "memberships": ["Blue Peter"],
-  "type": ["Museum", "Transport", "Local Heritage"],
-  "website": "https://www.amberleymuseum.co.uk/",
-  "image": "https://ichef.bbci.co.uk/childrens-responsive-ichef-live/976/childrens-binary-store/r/1x/cbbc/amberley-museum_1024x576.jpg",
-  "description": "Amberley Museum is a 36 acre open air site set in the South Downs National Park dedicated to the industrial heritage of the south east. Take a ride around the Museum on the narrow gauge railway and historic bus. Exhibits include the telecommunications hall, electricity hall, working printshop, lime kilns, road steam engines, radio and TV exhibition, stationary engines and more. The Museum is also home to traditional craftspeople, such as the woodturners, wheelwrights and blacksmith, with a café, gift shop, nature trails and numerous picnic areas."
-  "nearestStation": "Amberley"
-  "trainwebsite": "https://www.nationalrail.co.uk/destinations/trains-to-amberley/#O"
-}
+[
+  {
+    "name": "Amberley Museum",
+    "lat": 50.897738,
+    "lng": -0.539903,
+    "memberships": ["Blue Peter"],
+    "type": ["Museum", "Transport", "Local Heritage"],
+    "website": "https://www.amberleymuseum.co.uk/",
+    "image": "https://ichef.bbci.co.uk/childrens-responsive-ichef-live/976/childrens-binary-store/r/1x/cbbc/amberley-museum_1024x576.jpg",
+    "description": "Open-air industrial heritage museum.",
+    "nearestStation": "Amberley",
+    "trainwebsite": "https://www.nationalrail.co.uk/destinations/trains-to-amberley/#O"
+  },
+
+  {
+    "name": "Beamish Museum",
+    "lat": 54.8893,
+    "lng": -1.6578,
+    "memberships": ["None"],
+    "type": ["Museum", "Heritage"],
+    "website": "https://www.beamish.org.uk/",
+    "image": "https://www.beamish.org.uk/wp-content/uploads/2020/08/Beamish-Museum.jpg",
+    "description": "Living museum of the North.",
+    "nearestStation": "Chester-le-Street",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/CLS/details.html"
+  },
+
+  {
+    "name": "Eden Project",
+    "lat": 50.3618,
+    "lng": -4.7445,
+    "memberships": ["None"],
+    "type": ["Garden", "Museum"],
+    "website": "https://www.edenproject.com/",
+    "image": "https://www.edenproject.com/sites/default/files/styles/hero_l/public/2022-12/eden-project-biomes.jpg",
+    "description": "Biomes and ecological exhibits.",
+    "nearestStation": "St Austell",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/SAT/details.html"
+  }
+]
