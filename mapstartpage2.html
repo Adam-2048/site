@@ -113,7 +113,7 @@ Promise.all([
       `<h3>${a.name}</h3>
       <p><b>Type:</b> ${a.type.join(', ')}</p>
       <p><b>Memberships:</b> ${a.memberships.join(', ')}</p>
-      <p><b>Nearest station:</b> ${ns.name} (${ns.distanceKm.toFixed(1)} km)</p>`;
+      <p><b>Nearest station:</b> ${ns.stationName} (${ns.distanceKm.toFixed(1)} km)</p>`;
     L.marker([a.lat,a.lng]).addTo(map).bindPopup(html);
   });
 });
