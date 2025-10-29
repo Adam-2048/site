@@ -114,6 +114,8 @@ Promise.all([
       <p><b>Type:</b> ${a.type.join(', ')}</p>
       <p><b>Memberships:</b> ${a.memberships.join(', ')}</p>
       <p><b>Nearest station:</b> ${ns.stationName} (${ns.distanceKm.toFixed(1)} km)</p>`;
+      //<p><b>Go by train:</b>     ${}
+      <button onclick=href="https://www.google.com/maps/place/Amberley+Museum/@50.898011,-0.5421111,17z/data=!3m1!4b1!4m6!3m5!1s0x4875baad9d53f05b:0x6a1de906749895d2!8m2!3d50.898011!4d-0.5395362!16zL20vMDExeHE1?entry=ttu&g_ep=EgoyMDI1MTAyNy4wIKXMDSoASAFQAw%3D%3D">Light/Dark</button>
     L.marker([a.lat,a.lng]).addTo(map).bindPopup(html);
   });
 });
