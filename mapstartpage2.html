@@ -59,6 +59,10 @@
     <button class="toggle" onclick="toggleTheme()">Light/Dark</button>
   </nav>
 </header>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   
 <div id="searchBox"
   style="
@@ -96,10 +100,6 @@
   ></div>
 </div>
 
-<div id="map"></div>
-
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
 <script>
 const map=L.map('map').setView([54.5,-3.5],6);
 
@@ -133,6 +133,36 @@ function pickFirst(){
   sug.style.display = "none";
 }
 
+function gotoAttraction(a){
+  map.flyTo([a.lat,a.lng], 12);
+  markers[a.id].openPopup();
+  showDetails(a);
+}
+  
+function getDistanceKm(a1,o1,a2,o2){
+  const R=6371;
+  const r=d=>d*Math.PI/180;
+  const dA=r(a2-a1);
+  const dO=r(o2-o1);
+  const x=Math.sin(dA/2)**2+
+    Math.cos(r(a1))*Math.cos(r(a2))*Math.sin(dO/2)**2;
+  const c=2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+  return R*c;
+}
+
+function findNearestStation(a,stations){
+  let out=null;
+  let best=Infinity;
+  stations.forEach(s=>{
+    const d=getDistanceKm(a.lat,a.lng,s.lat,s.long);
+    if(d<best){
+      best=d;
+      out={...s,distanceKm:d};
+    }
+  });
+  return out;
+}
+
 input.oninput = () => {
   const t = input.value.trim().toLowerCase();
   if(!t){
@@ -163,36 +193,6 @@ function showSuggestions(list){
     sug.appendChild(d);
   });
   sug.style.display = "block";
-}
-
-function gotoAttraction(a){
-  map.flyTo([a.lat,a.lng], 12);
-  markers[a.id].openPopup();
-  showDetails(a);
-}
-  
-function getDistanceKm(a1,o1,a2,o2){
-  const R=6371;
-  const r=d=>d*Math.PI/180;
-  const dA=r(a2-a1);
-  const dO=r(o2-o1);
-  const x=Math.sin(dA/2)**2+
-    Math.cos(r(a1))*Math.cos(r(a2))*Math.sin(dO/2)**2;
-  const c=2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
-  return R*c;
-}
-
-function findNearestStation(a,stations){
-  let out=null;
-  let best=Infinity;
-  stations.forEach(s=>{
-    const d=getDistanceKm(a.lat,a.lng,s.lat,s.long);
-    if(d<best){
-      best=d;
-      out={...s,distanceKm:d};
-    }
-  });
-  return out;
 }
 
 Promise.all([
