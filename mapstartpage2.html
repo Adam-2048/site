@@ -59,6 +59,11 @@
     <button class="toggle" onclick="toggleTheme()">Light/Dark</button>
   </nav>
 </header>
+  
+<div id="searchBox" style="position:absolute;top:70px;left:10px;z-index:999;">
+  <input id="searchInput" type="text" placeholder="Search place or attraction"/>
+  <button id="searchBtn">Go</button>
+</div>
 
 <div id="map"></div>
 
@@ -79,6 +84,14 @@ function toggleTheme(){
   document.documentElement.classList.toggle('light-theme');
 }
 
+document.getElementById("searchBtn").onclick = handleSearch;
+
+function handleSearch(){
+  const term = document.getElementById("searchInput").value.trim();
+  if(!term) return;
+  runSearch(term);
+}
+  
 function getDistanceKm(a1,o1,a2,o2){
   const R=6371;
   const r=d=>d*Math.PI/180;
