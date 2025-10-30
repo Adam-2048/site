@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UK Days Out Map</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, sans-serif;
+    }
+    #map {
+      height: 100vh;
+      width: 100vw;
+    }
+    #searchBox {
+      position: absolute;
+      top: 70px;
+      left: 70px;
+      z-index: 9999;
+      width: 300px;
+    }
+    #searchInput {
+      width:100%;
+      padding:10px;
+      border:1px solid #444;
+      border-radius:8px 8px 0 0;
+      background:white;
+      font-size:14px;
+    }
+    #suggest {
+      background:white;
+      border:1px solid #444;
+      border-top:none;
+      display:none;
+      max-height:250px;
+      overflow:auto;
+      border-radius:0 0 8px 8px;
+      box-shadow:0 4px 10px rgba(0,0,0,.2);
+    }
+    #suggest div {
+      padding:8px 10px;
+      cursor:pointer;
+    }
+    #suggest div:hover {
+      background:#eee;
+    }
+    #sidePanel {
+      position:absolute;
+      right:0;
+      top:0;
+      width:340px;
+      height:100vh;
+      background:white;
+      border-left:1px solid #444;
+      z-index:9998;
+      padding:16px;
+      overflow:auto;
+      display:none;
+    }
+    #closePanel {
+      margin-top:12px;
+      padding:8px 12px;
+      border:1px solid #444;
+      border-radius:6px;
+      background:#fff;
+      cursor:pointer;
+    }
+    #goBtn {
+      padding:8px 12px;
+      border:1px solid #444;
+      border-radius:6px;
+      background:#fff;
+      cursor:pointer;
+      margin-top:10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header style="
+  position:absolute;top:0;left:0;width:100%;
+  display:flex;justify-content:space-between;
+  background:#f6f6db;border-bottom:1px solid #444;
+  padding:1rem 2rem;z-index:9999;">
+  <div>UK Days Out Map</div>
+  <nav>
+    <a href="index.html">Home</a> |
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<div id="map"></div>
+
+<!-- Search UI -->
+<div id="searchBox">
+  <input id="searchInput" placeholder="Search attractions...">
+  <div id="suggest"></div>
+</div>
+
+<!-- Side panel -->
+<div id="sidePanel"></div>
+
+
+<script>
+/* ============================================================
+   MAP
+============================================================ */
+const map = L.map('map').setView([54.5, -3.5], 6);
+
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: "&copy; OpenStreetMap contributors"
+}).addTo(map);
+
+
+/* ============================================================
+   GLOBALS
+============================================================ */
+let attractions = [];
+let stations    = [];
+const markers   = {};
+
+
+/* ============================================================
+   UTILS
+============================================================ */
+function slug(s){
+  return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
+}
+
+function showDetails(a){
+  const p = document.getElementById("sidePanel");
+  p.style.display = "block";
+
+  p.innerHTML = `
+    <h2>${a.name}</h2>
+    <p><b>Type:</b> ${(a.type || []).join(", ")}</p>
+    <p><b>Memberships:</b> ${(a.memberships || []).join(", ")}</p>
+    <p><b>Nearest station:</b> ${a.nearestStation || "Unknown"}</p>
+    <p><a href="${a.website}" target="_blank">Website</a></p>
+
+    <button id="goBtn">Take me there</button><br>
+    <button id="closePanel">Close</button>
+  `;
+
+  document.getElementById("closePanel").onclick = () => {
+    p.style.display = "none";
+  };
+
+  document.getElementById("goBtn").onclick = () => {
+    gotoAttraction(a);
+  };
+}
+
+function gotoAttraction(a){
+  map.flyTo([a.lat, a.lng], 12);
+  markers[a.id].openPopup();
+  showDetails(a);
+}
+
+
+/* ============================================================
+   SEARCH SUGGEST
+============================================================ */
+const input = document.getElementById("searchInput");
+const sug   = document.getElementById("suggest");
+
+function showSuggestions(list){
+  if(!list.length){
+    sug.style.display = "none";
+    return;
+  }
+  sug.innerHTML = "";
+  list.slice(0,10).forEach(a=>{
+    const d = document.createElement("div");
+    d.textContent = a.name;
+    d.onclick = () => {
+      sug.style.display="none";
+      gotoAttraction(a);
+    };
+    sug.appendChild(d);
+  });
+  sug.style.display = "block";
+}
+
+function searchByName(t){
+  t = t.trim().toLowerCase();
+  return attractions.filter(a =>
+    a.name.toLowerCase().includes(t)
+  );
+}
+
+input.addEventListener("input", ()=>{
+  const t = input.value;
+  if(!t){
+    sug.style.display="none";
+    return;
+  }
+  showSuggestions(searchByName(t));
+});
+
+input.addEventListener("keydown", (e)=>{
+  if(e.key === "Enter"){
+    e.preventDefault();
+    const t = input.value;
+    const res = searchByName(t);
+    if(res.length > 0) gotoAttraction(res[0]);
+    sug.style.display="none";
+  }
+});
+
+document.addEventListener("click", (ev)=>{
+  if(!document.getElementById("searchBox").contains(ev.target)){
+    sug.style.display="none";
+  }
+});
+
+
+/* ============================================================
+   LOAD DATA + BUILD MARKERS
+============================================================ */
+Promise.all([
+  fetch("attractions.json").then(r=>r.json()),
+  fetch("stations.json").then(r=>r.json())
+]).then(([A, S]) => {
+
+  attractions = Array.isArray(A) ? A : [A];
+  stations    = S;
+
+  attractions.forEach(a=>{
+    if(!a.id) a.id = slug(a.name);
+    if(a.lng === undefined && a.long !== undefined) a.lng = a.long;
+
+    const popupHTML = `<b>${a.name}</b>`;
+
+    const m = L.marker([a.lat, a.lng]).addTo(map).bindPopup(popupHTML);
+    markers[a.id] = m;
+
+    m.on("click", ()=> showDetails(a));
+  });
+});
+</script>
+
+</body>
+</html>
