@@ -2,96 +2,67 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=0.5"/>
   <title>UK Days Out Map</title>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <style>
-    body {
-      margin: 0;
-      font-family: Inter, sans-serif;
+    :root.light-theme{
+      --bg:#1a1a1a;--fg:#f4f4f4;--accent:#157a18;--card-bg:#262626;--button-border:#157a18;
     }
-    #map {
-      height: 100vh;
-      width: 100vw;
+    :root{
+      --bg:#f6f6db;--fg:#222;--accent:#157a18;--card-bg:#f6f6db;--button-border:#157a18;
     }
-    #searchBox {
-      position: absolute;
-      top: 70px;
-      left: 70px;
-      z-index: 9999;
-      width: 300px;
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--fg);font-family:'Inter',sans-serif;transition:background-color .4s,color .4s}
+    header{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:var(--card-bg);border-bottom:1px solid #444;position:sticky;top:0;z-index:999}
+    .logo{font-family:'Press Start 2P',monospace;font-size:1rem;color:var(--accent)}
+    nav a{color:var(--fg);text-decoration:none;margin-left:2rem;font-weight:bold}
+    .toggle{background:var(--card-bg);border:2px solid var(--button-border);color:var(--accent);padding:.3rem .6rem;font-family:'Press Start 2P',monospace;font-size:.7rem;cursor:pointer;box-shadow:2px 2px 0 var(--accent)}
+    #map{height:100vh}
+    /* Search box (moved right of zoom controls) */
+    #searchBox{
+      position:absolute;top:80px;left:70px;z-index:1001;width:340px;font-size:14px;
+      font-family:Inter, sans-serif;
     }
-    #searchInput {
-      width:100%;
-      padding:10px;
-      border:1px solid #444;
-      border-radius:8px 8px 0 0;
-      background:white;
-      font-size:14px;
+    #searchInput{
+      width:100%;padding:10px 12px;border:1px solid #444;border-radius:8px 8px 0 0;background:rgba(255,255,255,0.95);
+      outline:none;font-size:14px;
     }
-    #suggest {
-      background:white;
-      border:1px solid #444;
-      border-top:none;
-      display:none;
-      max-height:250px;
-      overflow:auto;
-      border-radius:0 0 8px 8px;
-      box-shadow:0 4px 10px rgba(0,0,0,.2);
+    #suggest{
+      background:#fff;border:1px solid #444;border-top:none;display:none;max-height:260px;overflow:auto;border-radius:0 0 8px 8px;box-shadow:0 6px 18px rgba(0,0,0,.18);
     }
-    #suggest div {
-      padding:8px 10px;
-      cursor:pointer;
+    #suggest>div{padding:8px 10px;cursor:pointer}
+    #suggest>div:hover{background:#f0f0f0}
+    /* radius controls */
+    #radiusBox{
+      position:absolute;top:200px;left:70px;z-index:1001;width:340px;padding:10px;background:var(--card-bg);border:1px solid #444;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.08);
+      display:flex;flex-direction:column;gap:8px;
     }
-    #suggest div:hover {
-      background:#eee;
+    #radiusBox label{font-size:13px;color:var(--fg)}
+    #radiusVal{font-weight:700}
+    /* side panel */
+    #sidePanel{
+      position:absolute;right:0;top:0;width:360px;height:100vh;background:var(--card-bg);z-index:1000;padding:16px;overflow:auto;border-left:1px solid #444;display:none;
     }
-    #sidePanel {
-      position:absolute;
-      right:0;
-      top:0;
-      width:340px;
-      height:100vh;
-      background:white;
-      border-left:1px solid #444;
-      z-index:9998;
-      padding:16px;
-      overflow:auto;
-      display:none;
-    }
-    #closePanel {
-      margin-top:12px;
-      padding:8px 12px;
-      border:1px solid #444;
-      border-radius:6px;
-      background:#fff;
-      cursor:pointer;
-    }
-    #goBtn {
-      padding:8px 12px;
-      border:1px solid #444;
-      border-radius:6px;
-      background:#fff;
-      cursor:pointer;
-      margin-top:10px;
-    }
+    #sidePanel h2{margin-top:0;color:var(--accent);font-family:Inter, sans-serif}
+    .resultItem{padding:8px;border-bottom:1px solid rgba(0,0,0,.05);cursor:pointer}
+    .resultItem:hover{background:rgba(0,0,0,.03)}
+    button.small{padding:8px 12px;border-radius:6px;border:1px solid #444;background:transparent;color:var(--fg);cursor:pointer;margin-right:8px}
+    .muted{opacity:0.8;font-size:13px}
   </style>
 </head>
-
 <body>
 
-<header style="
-  position:absolute;top:0;left:0;width:100%;
-  display:flex;justify-content:space-between;
-  background:#f6f6db;border-bottom:1px solid #444;
-  padding:1rem 2rem;z-index:9999;">
-  <div>UK Days Out Map</div>
+<header>
+  <div class="logo">UK Days Out Map</div>
   <nav>
-    <a href="index.html">Home</a> |
+    <a href="index.html">WebsiteHome</a>
     <a href="about.html">About</a>
+    <button class="toggle" onclick="toggleTheme()">Light/Dark</button>
   </nav>
 </header>
 
@@ -99,152 +70,349 @@
 
 <!-- Search UI -->
 <div id="searchBox">
-  <input id="searchInput" placeholder="Search attractions...">
+  <input id="searchInput" placeholder="Search attractions (name) or enter town/postcode"/>
   <div id="suggest"></div>
+</div>
+
+<!-- Radius controls -->
+<div id="radiusBox" style="display:none">
+  <label>
+    Centre: <span id="centerLabel" class="muted">—</span>
+  </label>
+  <label>
+    Radius: <span id="radiusVal">25</span> km
+  </label>
+  <input id="radius" type="range" min="1" max="200" value="25"/>
+  <div style="display:flex;justify-content:space-between">
+    <button id="clearRadius" class="small">Clear radius</button>
+    <button id="listNearby" class="small">List nearby</button>
+  </div>
 </div>
 
 <!-- Side panel -->
 <div id="sidePanel"></div>
 
-
 <script>
-/* ============================================================
-   MAP
-============================================================ */
+/* ---------- Map init ---------- */
 const map = L.map('map').setView([54.5, -3.5], 6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{ attribution:'&copy; OpenStreetMap contributors' }).addTo(map);
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: "&copy; OpenStreetMap contributors"
-}).addTo(map);
-
-
-/* ============================================================
-   GLOBALS
-============================================================ */
+/* ---------- globals ---------- */
 let attractions = [];
-let stations    = [];
-const markers   = {};
+let stations = [];
+const markers = {};
+let circleLayer = null;
+let centerLocation = null; // {lat,lng}
+const highlighted = new Set();
 
+/* ---------- theme toggle ---------- */
+function toggleTheme(){ document.documentElement.classList.toggle('light-theme'); }
 
-/* ============================================================
-   UTILS
-============================================================ */
-function slug(s){
-  return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
+/* ---------- helpers ---------- */
+const el = id => document.getElementById(id);
+const slug = s => (s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+function clamp(n,min,max){ return Math.max(min,Math.min(max,n)); }
+function toFixedSafe(v,dp=1){ return (typeof v === 'number')? v.toFixed(dp) : v; }
+
+/* haversine */
+function getDistanceKm(lat1, lon1, lat2, lon2){
+  const R = 6371;
+  const toRad = d => d * Math.PI/180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
 }
 
-function showDetails(a){
-  const p = document.getElementById("sidePanel");
-  p.style.display = "block";
+/* safe station name (stations file uses stationName) */
+function stationNameOf(s){ return s.stationName || s.name || s.station || 'Unknown'; }
 
-  p.innerHTML = `
+/* ---------- UI elements ---------- */
+const input = el('searchInput');
+const suggest = el('suggest');
+const sidePanel = el('sidePanel');
+const radiusBox = el('radiusBox');
+const radiusInput = el('radius');
+const radiusVal = el('radiusVal');
+const centerLabel = el('centerLabel');
+const clearRadiusBtn = el('clearRadius');
+const listNearbyBtn = el('listNearby');
+
+/* ---------- marker icon helpers ---------- */
+const defaultIcon = L.icon({ iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png', iconSize:[25,41], iconAnchor:[12,41], popupAnchor:[1,-34] });
+const highlightIcon = L.icon({ iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png', iconSize:[30,48], iconAnchor:[15,48], popupAnchor:[1,-34] });
+
+/* ---------- rendering functions ---------- */
+function showSidePanelFor(a){
+  sidePanel.style.display = 'block';
+  // compute nearest station if available
+  let ns = '';
+  if(Array.isArray(stations) && stations.length){
+    // allow stations with lat/long or lat/lng
+    let best = Infinity;
+    let found = null;
+    stations.forEach(s=>{
+      const slat = Number(s.lat), slng = (s.long!==undefined? Number(s.long) : Number(s.lng));
+      if(!isFinite(slat) || !isFinite(slng)) return;
+      const d = getDistanceKm(a.lat,a.lng,slat,slng);
+      if(d < best){ best = d; found = {...s, distanceKm: d}; }
+    });
+    if(found) ns = `${stationNameOf(found)} (${found.distanceKm.toFixed(1)} km)`;
+  }
+  sidePanel.innerHTML = `
     <h2>${a.name}</h2>
-    <p><b>Type:</b> ${(a.type || []).join(", ")}</p>
-    <p><b>Memberships:</b> ${(a.memberships || []).join(", ")}</p>
-    <p><b>Nearest station:</b> ${a.nearestStation || "Unknown"}</p>
-    <p><a href="${a.website}" target="_blank">Website</a></p>
-
-    <button id="goBtn">Take me there</button><br>
-    <button id="closePanel">Close</button>
+    <p class="muted">${a.type? a.type.join(', '): ''}</p>
+    <p>${a.description? a.description : ''}</p>
+    <p><b>Memberships:</b> ${a.memberships? a.memberships.join(', '): '—'}</p>
+    <p><b>Nearest station:</b> ${ns || (a.nearestStation || '—')}</p>
+    <p><a href="${a.website || '#'}" target="_blank">Website</a></p>
+    <div style="margin-top:12px">
+      <button id="takeThere" class="small">Take me there</button>
+      <button id="closePanel" class="small">Close</button>
+    </div>
   `;
-
-  document.getElementById("closePanel").onclick = () => {
-    p.style.display = "none";
-  };
-
-  document.getElementById("goBtn").onclick = () => {
-    gotoAttraction(a);
+  el('closePanel').onclick = ()=> sidePanel.style.display = 'none';
+  el('takeThere').onclick = ()=> {
+    map.flyTo([a.lat,a.lng], 13);
+    markers[a.id]?.openPopup();
   };
 }
 
-function gotoAttraction(a){
-  map.flyTo([a.lat, a.lng], 12);
-  markers[a.id].openPopup();
-  showDetails(a);
-}
-
-
-/* ============================================================
-   SEARCH SUGGEST
-============================================================ */
-const input = document.getElementById("searchInput");
-const sug   = document.getElementById("suggest");
-
-function showSuggestions(list){
-  if(!list.length){
-    sug.style.display = "none";
-    return;
-  }
-  sug.innerHTML = "";
-  list.slice(0,10).forEach(a=>{
-    const d = document.createElement("div");
-    d.textContent = a.name;
-    d.onclick = () => {
-      sug.style.display="none";
-      gotoAttraction(a);
+/* list multiple results in side panel */
+function listResults(results, centerMode=false){
+  sidePanel.style.display = 'block';
+  const header = centerMode ? `<h2>Results within ${radiusInput.value} km</h2>` : `<h2>${results.length} result(s)</h2>`;
+  const items = results.map((a, i) => {
+    const d = centerMode ? ` — ${getDistanceKm(centerLocation.lat, centerLocation.lng, a.lat, a.lng).toFixed(1)} km` : '';
+    return `<div class="resultItem" data-id="${a.id}"><b>${a.name}</b><div class="muted">${a.type? a.type.join(', '): ''}${d}</div></div>`;
+  }).join('');
+  sidePanel.innerHTML = `${header}${items}<div style="margin-top:12px"><button id="closePanel" class="small">Close</button></div>`;
+  sidePanel.querySelectorAll('.resultItem').forEach(elm=>{
+    elm.onclick = ()=> {
+      const id = elm.getAttribute('data-id');
+      const a = attractions.find(x=>x.id===id);
+      if(a){ gotoAttraction(a); }
     };
-    sug.appendChild(d);
   });
-  sug.style.display = "block";
+  el('closePanel').onclick = ()=> sidePanel.style.display = 'none';
 }
 
-function searchByName(t){
-  t = t.trim().toLowerCase();
-  return attractions.filter(a =>
-    a.name.toLowerCase().includes(t)
-  );
+/* highlight matching markers (for radius) */
+function highlightMarkers(list){
+  // reset previous
+  Object.values(markers).forEach(m => {
+    const id = m.__attrId;
+    if(id && !list.find(a=>a.id===id)){
+      m.setOpacity(0.5);
+    }
+  });
+  // highlight matches
+  list.forEach(a=>{
+    const m = markers[a.id];
+    if(m){
+      m.setOpacity(1);
+      // bring to front
+      if(m.bringToFront) m.bringToFront();
+    }
+  });
 }
 
-input.addEventListener("input", ()=>{
-  const t = input.value;
-  if(!t){
-    sug.style.display="none";
+/* clear highlight */
+function resetMarkerStyles(){
+  Object.values(markers).forEach(m => { m.setOpacity(1); });
+}
+
+/* ---------- search/autocomplete (names only) ---------- */
+function showSuggestions(list){
+  if(!list.length){ suggest.style.display='none'; suggest.innerHTML=''; return; }
+  suggest.innerHTML = '';
+  list.slice(0,12).forEach(a=>{
+    const d = document.createElement('div');
+    d.textContent = a.name;
+    d.onclick = ()=> { suggest.style.display='none'; input.value = a.name; gotoAttraction(a); };
+    d.onmouseover = ()=> d.style.background = '#eee';
+    d.onmouseout  = ()=> d.style.background = '';
+    suggest.appendChild(d);
+  });
+  suggest.style.display = 'block';
+}
+
+function searchByName(term){
+  const t = term.trim().toLowerCase();
+  if(!t) return [];
+  return attractions.filter(a => (a.name || '').toLowerCase().includes(t));
+}
+
+/* ---------- geocode (Nominatim) ---------- */
+async function geocode(q){
+  const url = 'https://nominatim.openstreetmap.org/search?' + new URLSearchParams({
+    q, format: 'json', addressdetails: 1, limit: 5
+  }).toString();
+  const res = await fetch(url, { headers:{ 'Accept-Language':'en' }});
+  if(!res.ok) return null;
+  const data = await res.json();
+  if(!data || data.length === 0) return null;
+  // prefer result with postcode if available for postcode queries
+  return data.map(r => ({ lat: Number(r.lat), lng: Number(r.lon), display_name: r.display_name, type: r.type, boundingbox: r.boundingbox }));
+}
+
+/* ---------- search handling ---------- */
+input.addEventListener('input', ()=>{
+  const t = input.value.trim();
+  if(!t){ showSuggestions([]); return; }
+  // only suggest attractions by name
+  const out = searchByName(t);
+  if(out.length) showSuggestions(out);
+  else showSuggestions([]); // no attraction suggestions for town/postcode
+});
+
+input.addEventListener('keydown', async (e)=>{
+  if(e.key === 'Enter'){
+    e.preventDefault();
+    const q = input.value.trim();
+    if(!q) return;
+    // first try attraction name
+    const out = searchByName(q);
+    if(out.length > 0){
+      // go to first match
+      gotoAttraction(out[0]);
+      suggest.style.display = 'none';
+      return;
+    }
+    // else geocode
+    const geo = await geocode(q);
+    if(!geo){ alert('Location not found'); return; }
+    // pick first geocode result
+    centerLocation = { lat: geo[0].lat, lng: geo[0].lng, label: geo[0].display_name };
+    centerLabel.textContent = geo[0].display_name.split(',').slice(0,3).join(', ');
+    radiusBox.style.display = 'flex';
+    // draw circle and filter
+    doRadiusSearch();
+  }
+});
+
+/* ---------- radius behaviour ---------- */
+radiusInput.addEventListener('input', ()=>{
+  radiusVal.textContent = radiusInput.value;
+  if(centerLocation) doRadiusSearch();
+});
+
+clearRadiusBtn.addEventListener('click', ()=>{
+  centerLocation = null;
+  radiusBox.style.display = 'none';
+  if(circleLayer){ map.removeLayer(circleLayer); circleLayer = null; }
+  resetMarkerStyles();
+  sidePanel.style.display = 'none';
+});
+
+listNearbyBtn.addEventListener('click', ()=>{
+  if(!centerLocation) return;
+  const km = Number(radiusInput.value);
+  const results = attractions.filter(a => getDistanceKm(centerLocation.lat, centerLocation.lng, a.lat, a.lng) <= km);
+  if(results.length === 0){ sidePanel.style.display='block'; sidePanel.innerHTML = '<h2>No results</h2>'; return; }
+  listResults(results, true);
+});
+
+/* ---------- do radius search: draw circle + highlight + fit bounds + list ---------- */
+function doRadiusSearch(){
+  if(!centerLocation) return;
+  const km = Number(radiusInput.value);
+  if(circleLayer){ map.removeLayer(circleLayer); circleLayer = null; }
+  circleLayer = L.circle([centerLocation.lat, centerLocation.lng], { radius: km*1000, color:'#157a18', fill:false }).addTo(map);
+  map.fitBounds(circleLayer.getBounds(), { padding:[40,40] });
+  // find matches
+  const matches = attractions.filter(a => getDistanceKm(centerLocation.lat, centerLocation.lng, a.lat, a.lng) <= km);
+  if(matches.length === 0){
+    resetMarkerStyles();
+    sidePanel.style.display = 'block';
+    sidePanel.innerHTML = `<h2>No attractions within ${km} km</h2><div style="margin-top:12px"><button id="closePanel" class="small">Close</button></div>`;
+    el('closePanel').onclick = ()=> sidePanel.style.display = 'none';
     return;
   }
-  showSuggestions(searchByName(t));
-});
+  highlightMarkers(matches);
+  // show list
+  listResults(matches, true);
+}
 
-input.addEventListener("keydown", (e)=>{
-  if(e.key === "Enter"){
-    e.preventDefault();
-    const t = input.value;
-    const res = searchByName(t);
-    if(res.length > 0) gotoAttraction(res[0]);
-    sug.style.display="none";
+/* ---------- goto attraction: fly + popup + open side panel ---------- */
+function gotoAttraction(a){
+  map.flyTo([a.lat, a.lng], 13);
+  const m = markers[a.id];
+  if(m){ m.openPopup(); }
+  showSidePanelFor(a);
+}
+
+/* side panel variant for single attraction (includes nearest station calculation) */
+function showSidePanelFor(a){
+  // compute nearest station
+  let nsText = a.nearestStation || '—';
+  if(Array.isArray(stations) && stations.length){
+    let best = Infinity;
+    let found = null;
+    stations.forEach(s=>{
+      const slat = Number(s.lat);
+      const slng = (s.long !== undefined? Number(s.long) : Number(s.lng));
+      if(!isFinite(slat) || !isFinite(slng)) return;
+      const d = getDistanceKm(a.lat, a.lng, slat, slng);
+      if(d < best){ best = d; found = {...s, distanceKm:d}; }
+    });
+    if(found) nsText = `${stationNameOf(found)} (${found.distanceKm.toFixed(1)} km)`;
   }
-});
+  sidePanel.style.display = 'block';
+  sidePanel.innerHTML = `
+    <h2>${a.name}</h2>
+    <p class="muted">${a.type? a.type.join(', '): ''}</p>
+    <p>${a.description || ''}</p>
+    <p><b>Memberships:</b> ${a.memberships? a.memberships.join(', '): '—'}</p>
+    <p><b>Nearest station:</b> ${nsText}</p>
+    <p><a href="${a.website || '#'}" target="_blank">Website</a></p>
+    <div style="margin-top:12px">
+      <button id="takeThere" class="small">Take me there</button>
+      <button id="closePanel2" class="small">Close</button>
+    </div>
+  `;
+  el('takeThere').onclick = ()=> { map.flyTo([a.lat, a.lng], 13); markers[a.id]?.openPopup(); };
+  el('closePanel2').onclick = ()=> sidePanel.style.display = 'none';
+}
 
-document.addEventListener("click", (ev)=>{
-  if(!document.getElementById("searchBox").contains(ev.target)){
-    sug.style.display="none";
-  }
-});
-
-
-/* ============================================================
-   LOAD DATA + BUILD MARKERS
-============================================================ */
+/* ---------- load data + create markers ---------- */
 Promise.all([
-  fetch("attractions.json").then(r=>r.json()),
-  fetch("stations.json").then(r=>r.json())
-]).then(([A, S]) => {
-
-  attractions = Array.isArray(A) ? A : [A];
-  stations    = S;
+  fetch('attractions.json').then(r=>r.json()),
+  fetch('stations.json').then(r=>r.json())
+]).then(([A,S])=>{
+  attractions = Array.isArray(A)? A : [A];
+  stations = Array.isArray(S)? S : [];
 
   attractions.forEach(a=>{
     if(!a.id) a.id = slug(a.name);
+    // accept lng or long, normalize to lng
     if(a.lng === undefined && a.long !== undefined) a.lng = a.long;
+    a.lat = Number(a.lat); a.lng = Number(a.lng);
 
-    const popupHTML = `<b>${a.name}</b>`;
-
-    const m = L.marker([a.lat, a.lng]).addTo(map).bindPopup(popupHTML);
+    const popupHTML = `<strong>${a.name}</strong><br><span class="muted">${(a.type||[]).join(', ')}</span>`;
+    const m = L.marker([a.lat, a.lng], {icon: defaultIcon}).addTo(map).bindPopup(popupHTML);
+    m.__attrId = a.id; // attach for reference
     markers[a.id] = m;
-
-    m.on("click", ()=> showDetails(a));
+    // click marker -> show details
+    m.on('click', ()=> showSidePanelFor(a));
   });
-});
-</script>
 
+}).catch(e=>{
+  console.error('Failed loading data', e);
+  alert('Failed to load attractions or stations. Check console.');
+});
+
+/* ---------- click outside suggestions hides list ---------- */
+document.addEventListener('click', (ev)=>{
+  if(!document.getElementById('searchBox').contains(ev.target)){
+    suggest.style.display = 'none';
+  }
+});
+
+/* ---------- expose helpers for debugging ---------- */
+window._mapSearch = { attractions, stations, markers, gotoAttraction };
+
+</script>
 </body>
 </html>
