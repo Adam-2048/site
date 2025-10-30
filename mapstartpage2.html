@@ -60,9 +60,40 @@
   </nav>
 </header>
   
-<div id="searchBox" style="position:absolute;top:70px;left:10px;z-index:999;">
-  <input id="searchInput" type="text" placeholder="Search place or attraction"/>
-  <button id="searchBtn">Go</button>
+<div id="searchBox"
+  style="
+    position:absolute;
+    top:70px;
+    left:60px;   /* moved right from zoom buttons */
+    z-index:999;
+    width:260px;
+    font-size:14px;
+  "
+>
+  <input id="searchInput"
+    type="text"
+    placeholder="Search attractions"
+    autocomplete="off"
+    style="
+      width:100%;
+      padding:8px 10px;
+      border:1px solid #444;
+      border-radius:6px 6px 0 0;
+      font-size:14px;
+    "
+  >
+  <div id="suggest"
+    style="
+      background:#fff;
+      border:1px solid #444;
+      border-top:none;
+      display:none;
+      max-height:260px;
+      overflow:auto;
+      border-radius:0 0 6px 6px;
+      box-shadow:0 4px 10px rgba(0,0,0,.3);
+    "
+  ></div>
 </div>
 
 <div id="map"></div>
@@ -84,12 +115,60 @@ function toggleTheme(){
   document.documentElement.classList.toggle('light-theme');
 }
 
-document.getElementById("searchBtn").onclick = handleSearch;
+const input = document.getElementById("searchInput");
+const sug   = document.getElementById("suggest");
 
-function handleSearch(){
-  const term = document.getElementById("searchInput").value.trim();
-  if(!term) return;
-  runSearch(term);
+input.onkeydown = e => {
+  if(e.key === "Enter"){
+    e.preventDefault();
+    pickFirst();
+  }
+};
+
+function pickFirst(){
+  const t = input.value.trim().toLowerCase();
+  if(!t) return;
+  const out = attractions.filter(x => x.name.toLowerCase().includes(t));
+  if(out.length > 0) gotoAttraction(out[0]);
+  sug.style.display = "none";
+}
+
+input.oninput = () => {
+  const t = input.value.trim().toLowerCase();
+  if(!t){
+    sug.style.display = "none";
+    return;
+  }
+  const out = attractions.filter(x => x.name.toLowerCase().includes(t));
+  showSuggestions(out.slice(0,10));
+};
+
+function showSuggestions(list){
+  if(list.length === 0){
+    sug.style.display = "none";
+    return;
+  }
+  sug.innerHTML = "";
+  list.forEach(a=>{
+    const d = document.createElement("div");
+    d.textContent = a.name;
+    d.style.padding = "8px";
+    d.style.cursor  = "pointer";
+    d.onmouseover   = () => d.style.background = "#eee";
+    d.onmouseout    = () => d.style.background = "#fff";
+    d.onclick       = () => {
+      sug.style.display = "none";
+      gotoAttraction(a);
+    };
+    sug.appendChild(d);
+  });
+  sug.style.display = "block";
+}
+
+function gotoAttraction(a){
+  map.flyTo([a.lat,a.lng], 12);
+  markers[a.id].openPopup();
+  showDetails(a);
 }
   
 function getDistanceKm(a1,o1,a2,o2){
