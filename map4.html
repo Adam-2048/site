@@ -1,383 +1,400 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UK Days Out Map</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>UK Days Out Map</title>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-  <style>
-    body{
-      margin:0;
-      font-family:Inter,sans-serif;
-      background:#f6f6db;
-      color:#222;
-      overflow:hidden;
-    }
-    header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:1rem;
-      background:#f6f6db;
-      border-bottom:1px solid #444;
-      z-index:9999;
-      position:relative;
-    }
-    #map{
-      position:absolute;
-      top:60px; bottom:0; left:0; right:0;
-    }
+<style>
+:root {
+  --bg:#f6f6db;
+  --fg:#222;
+  --accent:#157a18;
+  --card:#ffffff;
+}
+:root.light-theme {
+  --bg:#1a1a1a;
+  --fg:#f4f4f4;
+  --card:#2a2a2a;
+}
 
-    /* search */
-    #searchBox{
-      position:absolute;
-      top:80px; left:70px;
-      width:260px;
-      z-index:9999;
-    }
-    #searchInput{
-      width:100%;
-      padding:10px;
-      border:1px solid #444;
-      border-radius:8px 8px 0 0;
-      background:#fff;
-      font-size:14px;
-    }
-    #suggest{
-      background:#fff;
-      border:1px solid #444;
-      border-top:none;
-      display:none;
-      max-height:240px;
-      overflow:auto;
-      border-radius:0 0 8px 8px;
-    }
-    #suggest div{
-      padding:8px;
-      cursor:pointer;
-    }
-    #suggest div:hover{
-      background:#eee;
-    }
+body {
+  margin:0;
+  font-family:Inter,sans-serif;
+  background:var(--bg);
+  color:var(--fg);
+}
 
-    /* radius */
-    #radiusBox{
-      position:absolute;
-      top:160px; left:70px;
-      width:260px;
-      padding:10px;
-      background:#fff;
-      border:1px solid #444;
-      border-radius:8px;
-      z-index:9999;
-      display:none;
-      font-size:14px;
-    }
+/* header */
+header {
+  position:sticky;
+  top:0;
+  z-index:2000;
+  background:var(--card);
+  border-bottom:1px solid #444;
+  padding:.75rem 1rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo { font-weight:700; color:var(--accent); }
+nav a {
+  color:var(--fg);
+  text-decoration:none;
+  margin-right:1rem;
+  font-weight:600;
+}
+.toggle {
+  border:1px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  padding:.3rem .6rem;
+  cursor:pointer;
+}
 
-    /* side panel */
-    #sidePanel{
-      position:absolute;
-      right:0; top:0;
-      width:340px; height:100vh;
-      background:#fff;
-      border-left:1px solid #444;
-      z-index:10000;
-      padding:16px;
-      overflow:auto;
-      display:none;
-    }
-    #sidePanel h2{
-      margin-top:0;
-    }
-    .sideImage{
-      width:100%;
-      border-radius:8px;
-      margin-bottom:12px;
-      object-fit:cover;
-      max-height:200px;
-    }
-    .btn{
-      display:inline-block;
-      padding:8px 12px;
-      border:1px solid #444;
-      border-radius:6px;
-      background:#fff;
-      font-size:14px;
-      margin:6px 4px 0 0;
-      cursor:pointer;
-    }
+/* map */
+#map {
+  width:100vw;
+  height:100vh;
+}
 
-    /* expand button floating */
-    #expandBtn{
-      position:absolute;
-      bottom:20px; right:20px;
-      z-index:9999;
-      padding:10px 14px;
-      border-radius:6px;
-      background:#fff;
-      border:1px solid #444;
-      font-size:14px;
-      cursor:pointer;
-      display:none;
-    }
+/* search box */
+#searchBox {
+  position:absolute;
+  top:70px;
+  left:70px;
+  z-index:1500;
+  width:320px;
+}
+#searchInput {
+  width:100%;
+  padding:10px;
+  border:1px solid #444;
+  border-radius:6px 6px 0 0;
+  background:#fff;
+  font-size:14px;
+}
+#suggest {
+  background:#fff;
+  border:1px solid #444;
+  border-top:none;
+  max-height:220px;
+  overflow:auto;
+  border-radius:0 0 6px 6px;
+  display:none;
+}
+#suggest div {
+  padding:8px 10px;
+  cursor:pointer;
+}
+#suggest div:hover {
+  background:#eee;
+}
 
-    @media(max-width:700px){
-      #searchBox{left:10px; width:85vw;}
-      #radiusBox{left:10px; width:85vw;}
-      #sidePanel{width:100vw;}
-    }
-  </style>
+/* radius box */
+#radiusBox {
+  position:absolute;
+  top:155px;
+  left:70px;
+  z-index:1500;
+  width:320px;
+  display:none;
+  flex-direction:column;
+  gap:8px;
+  border:1px solid #444;
+  background:var(--card);
+  padding:10px;
+  border-radius:8px;
+}
+#radiusVal { font-weight:700; }
+
+/* side panel stops under header */
+#sidePanel {
+  position:absolute;
+  right:0;
+  top:68px;     /* <= BELOW HEADER */
+  width:360px;
+  bottom:0;
+  overflow:auto;
+  background:var(--card);
+  border-left:1px solid #444;
+  z-index:1500;
+  display:none;
+  padding:16px;
+}
+#sidePanel img {
+  width:100%;
+  border-radius:6px;
+  margin-bottom:10px;
+}
+.sideButtons {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:12px 0;
+}
+.small {
+  border:1px solid #444;
+  background:transparent;
+  padding:8px 12px;
+  cursor:pointer;
+  border-radius:4px;
+}
+.resultItem {
+  padding:8px;
+  border-bottom:1px solid #ddd;
+  cursor:pointer;
+}
+.resultItem:hover {
+  background:#eee;
+}
+
+/* mobile */
+@media(max-width:600px) {
+  #searchBox {
+    top:70px;left:10px;width:calc(100vw - 20px);
+  }
+  #radiusBox {
+    top:145px;left:10px;width:calc(100vw - 20px);
+  }
+  #sidePanel {
+    width:100vw;
+    top:68px;
+  }
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <div>UK Days Out Map</div>
+  <div class="logo">UK Days Out</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <button class="toggle" onclick="toggleTheme()">Light/Dark</button>
+  </nav>
 </header>
 
 <div id="map"></div>
 
-<!-- Search -->
+<!-- search -->
 <div id="searchBox">
-  <input id="searchInput" placeholder="Search attractions or postcode"/>
+  <input id="searchInput" placeholder="Search by attraction / town / postcode">
   <div id="suggest"></div>
 </div>
 
-<!-- Radius -->
+<!-- radius -->
 <div id="radiusBox">
-  <div>Centre: <span id="centerLabel">—</span></div>
+  <div>Centre: <span id="centerLabel">–</span></div>
   <div>Radius: <span id="radiusVal">25</span> km</div>
   <input id="radius" type="range" min="1" max="200" value="25"/>
-  <div style="margin-top:8px">
-    <button id="listNearby" class="btn">List nearby</button>
-    <button id="clearRadius" class="btn">Clear</button>
+  <div style="display:flex;justify-content:space-between">
+    <button id="clearRadius" class="small">Clear</button>
+    <button id="listNearby" class="small">List nearby</button>
   </div>
 </div>
 
-<!-- Side panel -->
+<!-- right panel -->
 <div id="sidePanel"></div>
 
-<!-- Expand button -->
-<button id="expandBtn">See more</button>
-
 <script>
-/* Map */
-const map = L.map("map").setView([54.5,-3.5],6);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"&copy; OpenStreetMap"}).addTo(map);
+/* === MAP === */
+const map = L.map('map').setView([54.5,-3.5],6);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+  attribution:"&copy; OpenStreetMap contributors"
+}).addTo(map);
 
-/* State */
-let attractions=[];
-let stations=[];
-const markers={};
-let centerLocation=null;
-let circleLayer=null;
+/* === STATE === */
+let attractions = [];
+let stations = [];
+const markers = {};
+let centerLocation = null;
+let circleLayer = null;
 
-/* UI */
-const input=document.getElementById("searchInput");
-const suggest=document.getElementById("suggest");
-const radiusBox=document.getElementById("radiusBox");
-const radiusInput=document.getElementById("radius");
-const radiusVal=document.getElementById("radiusVal");
-const centerLabel=document.getElementById("centerLabel");
-const sidePanel=document.getElementById("sidePanel");
-const expandBtn=document.getElementById("expandBtn");
-const listNearbyBtn=document.getElementById("listNearby");
-const clearRadiusBtn=document.getElementById("clearRadius");
+/* === DOM === */
+const input = document.getElementById("searchInput");
+const suggest = document.getElementById("suggest");
+const sidePanel = document.getElementById("sidePanel");
+const radiusBox = document.getElementById("radiusBox");
+const radiusInput = document.getElementById("radius");
+const radiusVal = document.getElementById("radiusVal");
+const centerLabel = document.getElementById("centerLabel");
 
-/* Tools */
-function hdist(lat1,lon1,lat2,lon2){
-  const R=6371, toRad=d=>d*Math.PI/180;
-  const dLat=toRad(lat2-lat1), dLon=toRad(lon2-lon1);
-  const a=Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
-  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-}
-function stName(s){return s.stationName||s.name||"Unknown";}
-
-/* Fetch Wikipedia image if missing */
-async function fetchWikiImage(title){
-  try{
-    const url = "https://en.wikipedia.org/w/api.php?" +
-      new URLSearchParams({
-        action:"query",
-        prop:"pageimages",
-        piprop:"original",
-        format:"json",
-        origin:"*",
-        titles:title
-      }).toString();
-
-    const r = await fetch(url);
-    const j = await r.json();
-    const pages = j?.query?.pages;
-    if(!pages) return null;
-    const page = Object.values(pages)[0];
-    return page?.original?.source || null;
-  }catch(e){
-    console.warn("Wiki image error",e);
-    return null;
-  }
+/* === THEME === */
+function toggleTheme(){
+  document.documentElement.classList.toggle("light-theme");
 }
 
-/* Expand popup link */
-function setExpandFor(a){
-  expandBtn.style.display="block";
-  expandBtn.onclick=()=>showPanel(a);
+/* === UTIL === */
+function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");}
+function dist(lat1,lon1,lat2,lon2){
+  const R=6371;const toRad=d=>d*Math.PI/180;
+  const dLat=toRad(lat2-lat1),dLon=toRad(lon2-lon1);
+  const a=Math.sin(dLat/2)**2+Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+  return R*(2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));
 }
 
-/* Show right panel */
-async function showPanel(a){
-  let imgURL = a.image || null;
-  if(!imgURL){
-    imgURL = await fetchWikiImage(a.name);
+/* nearest station */
+function nearestStation(a){
+  let best=null, bestD=1e9;
+  for(const s of stations){
+    const slat=Number(s.lat);
+    const slng=Number(s.lng??s.long);
+    if(!isFinite(slat)||!isFinite(slng)) continue;
+    const d=dist(a.lat,a.lng,slat,slng);
+    if(d<bestD){bestD=d;best=s;}
   }
-  const imgHTML = imgURL ? `<img class="sideImage" src="${imgURL}"/>` : "";
+  return best?{...best,distance:bestD}:null;
+}
 
-  let nsTxt = a.nearestStation || "";
-  if(stations.length){
-    let best=null, bestDist=1e99;
-    stations.forEach(s=>{
-      const sl=Number(s.lat), lg=Number(s.long ?? s.lng);
-      if(!Number.isFinite(sl)||!Number.isFinite(lg))return;
-      const d=hdist(a.lat,a.lng,sl,lg);
-      if(d<bestDist){bestDist=d;best=s;}
-    });
-    if(best) nsTxt=`${stName(best)} (${bestDist.toFixed(1)} km)`;
-  }
-
+/* === POPULATE PANEL === */
+function showPanel(a){
   sidePanel.style.display="block";
-  sidePanel.innerHTML=`
+
+  const ns = nearestStation(a);
+  const nsName = ns ? (ns.stationName||ns.name||"Unknown") : "Unknown";
+  const nsDist = ns ? ns.distance.toFixed(1)+" km" : "";
+
+  /* google maps link – favour placeID if present */
+  let gmaps="";
+  if(a.gmapsPlaceId){
+    gmaps=`https://www.google.com/maps/search/?api=1&query_place_id=${a.gmapsPlaceId}`;
+  } else {
+    gmaps=`https://www.google.com/maps?q=${a.lat},${a.lng}`;
+  }
+
+  /* trains link */
+  let trains="#";
+  if(nsName) trains=`https://www.nationalrail.co.uk/?dest=${encodeURIComponent(nsName)}`;
+
+  sidePanel.innerHTML = `
+    ${a.image ? `<img src="${a.image}">`:""}
     <h2>${a.name}</h2>
-    ${imgHTML}
-    <p>${a.description || ""}</p>
-    <p><b>Nearest station:</b> ${nsTxt}</p>
-    <p><a href="${a.website || "#"}" target="_blank">Website</a></p>
-    <div>
-      <button class="btn" onclick="map.flyTo([${a.lat},${a.lng}],13);markers['${a.id}'].openPopup();">Take me there</button>
-      <a class="btn"
-         target="_blank"
-         href="https://ojp.nationalrail.co.uk/service/timesandfares/?tto=${encodeURIComponent(a.nearestStation||'')}">
-         Train
-      </a>
-      <a class="btn"
-         target="_blank"
-         href="https://www.google.com/maps/search/?api=1&query=${a.lat},${a.lng}">
-         Google Maps
-      </a>
-      <button class="btn" onclick="sidePanel.style.display='none'">Close</button>
+    <p>${a.description||""}</p>
+    <p><b>Memberships:</b> ${(a.memberships||[]).join(", ")||"—"}</p>
+    <p><b>Nearest station:</b> ${nsName} ${nsDist?"("+nsDist+")":""}</p>
+
+    <div class="sideButtons">
+      <button class="small" id="panBtn">Take me there</button>
+      <a href="${gmaps}" target="_blank"><button class="small">Google Maps</button></a>
+      <a href="${trains}" target="_blank"><button class="small">Train</button></a>
+      <button class="small" id="closeBtn">Close</button>
     </div>
   `;
+  document.getElementById("closeBtn").onclick=()=>sidePanel.style.display="none";
+  document.getElementById("panBtn").onclick=()=>gotoAttraction(a);
 }
 
-/* Go to attraction */
-function gotoA(a){
+/* === GOTO === */
+function gotoAttraction(a){
   map.flyTo([a.lat,a.lng],13);
-  markers[a.id].openPopup();
-  setExpandFor(a);
+  if(markers[a.id]) markers[a.id].openPopup();
+  showPanel(a);
 }
 
-/* Suggestion UI */
-function showSuggest(list){
+/* === SEARCH NAME === */
+function searchNames(q){
+  q=q.toLowerCase();
+  return attractions.filter(x=>x.name.toLowerCase().includes(q));
+}
+function showSuggestions(list){
   if(!list.length){suggest.style.display="none";return;}
   suggest.innerHTML="";
   list.slice(0,10).forEach(a=>{
     const d=document.createElement("div");
     d.textContent=a.name;
-    d.onclick=(()=>{
-      suggest.style.display="none";
-      gotoA(a);
-    });
+    d.onclick=()=>{suggest.style.display="none";gotoAttraction(a);}
     suggest.appendChild(d);
   });
   suggest.style.display="block";
 }
-function searchName(t){
-  t=t.trim().toLowerCase();
-  return attractions.filter(a=>a.name.toLowerCase().includes(t));
-}
 
-/* Geocode */
+/* === NOMINATIM === */
 async function geocode(q){
-  const url="https://nominatim.openstreetmap.org/search?format=json&q="+encodeURIComponent(q);
-  const r=await fetch(url);
-  if(!r.ok)return null;
+  const url=`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}`;
+  const r=await fetch(url,{headers:{"Accept-Language":"en"}});
+  if(!r.ok) return null;
   const d=await r.json();
-  return d?.length?{lat:Number(d[0].lat),lng:Number(d[0].lon),label:d[0].display_name}:null;
+  if(!d.length) return null;
+  return {lat:Number(d[0].lat),lng:Number(d[0].lon),label:d[0].display_name};
 }
 
-/* Radius search */
-function radiusSearch(){
-  if(!centerLocation)return;
+/* === RADIUS === */
+function doRadius(){
+  if(!centerLocation) return;
   const km=Number(radiusInput.value);
+  radiusVal.textContent=km;
 
   if(circleLayer) map.removeLayer(circleLayer);
-  circleLayer=L.circle([centerLocation.lat,centerLocation.lng],
-    {radius:km*1000,color:"#157a18",fill:false}).addTo(map);
+  circleLayer=L.circle([centerLocation.lat,centerLocation.lng],{
+    radius:km*1000,
+    color:"#157a18",
+    fill:false
+  }).addTo(map);
 
-  const out=attractions.filter(a=>hdist(centerLocation.lat,centerLocation.lng,a.lat,a.lng)<=km);
-  map.fitBounds(circleLayer.getBounds(),{padding:[40,40]});
-  if(out.length) listShows(out);
+  const nearby=attractions.filter(a=>dist(centerLocation.lat,centerLocation.lng,a.lat,a.lng)<=km);
+  listMany(nearby,km);
 }
-
-function listShows(list){
+function listMany(list,km){
   sidePanel.style.display="block";
-  sidePanel.innerHTML="<h2>Results</h2>";
-  list.forEach(a=>{
-    const el=document.createElement("div");
-    el.style.padding="8px";
-    el.style.borderBottom="1px solid #ddd";
-    el.style.cursor="pointer";
-    el.textContent=a.name;
-    el.onclick=(()=>gotoA(a));
-    sidePanel.appendChild(el);
+  sidePanel.innerHTML=
+    `<h2>${list.length} attraction(s) within ${km} km</h2>` +
+    list.map(a=>`<div class="resultItem" data-id="${a.id}"><b>${a.name}</b></div>`).join("")+
+    `<button class="small" id="closeList">Close</button>`;
+  sidePanel.querySelectorAll(".resultItem").forEach(el=>{
+    el.onclick=()=>{
+      const id=el.dataset.id;
+      const a=attractions.find(x=>x.id===id);
+      if(a)gotoAttraction(a);
+    };
   });
-  const x=document.createElement("button");
-  x.textContent="Close";
-  x.className="btn";
-  x.onclick=(()=>sidePanel.style.display="none");
-  sidePanel.appendChild(x);
+  document.getElementById("closeList").onclick=()=>sidePanel.style.display="none";
 }
 
-/* Input handlers */
+/* === INPUT HANDLERS === */
 input.oninput=()=>{
-  const t=input.value;
+  const t=input.value.trim();
   if(!t){suggest.style.display="none";return;}
-  showSuggest(searchName(t));
+  const out=searchNames(t);
+  showSuggestions(out);
 };
-
 input.onkeydown=async e=>{
   if(e.key==="Enter"){
     e.preventDefault();
     const t=input.value.trim();
-    if(!t)return;
-    const m=searchName(t);
-    if(m.length){gotoA(m[0]);return;}
+    if(!t) return;
+    const out=searchNames(t);
+    if(out.length>0){gotoAttraction(out[0]);return;}
+    /* else geocode */
     const g=await geocode(t);
-    if(!g){alert("Not found");return;}
+    if(!g){alert("Location not found");return;}
     centerLocation=g;
-    centerLabel.textContent=g.label.split(",")[0];
-    radiusBox.style.display="block";
-    radiusSearch();
+    centerLabel.textContent=g.label;
+    radiusBox.style.display="flex";
+    doRadius();
   }
 };
 
-radiusInput.oninput=()=>{
-  radiusVal.textContent=radiusInput.value;
-  radiusSearch();
-};
+/* radius change */
+radiusInput.oninput=()=>doRadius();
 
-listNearbyBtn.onclick=()=>radiusSearch();
-
-clearRadiusBtn.onclick=()=>{
+/* clear radius */
+document.getElementById("clearRadius").onclick=()=>{
   centerLocation=null;
   radiusBox.style.display="none";
   if(circleLayer) map.removeLayer(circleLayer);
   sidePanel.style.display="none";
 };
 
-/* Load data */
+/* list nearby */
+document.getElementById("listNearby").onclick=()=>doRadius();
+
+/* === LOAD DATA === */
 Promise.all([
   fetch("attractions.json").then(r=>r.json()),
   fetch("stations.json").then(r=>r.json())
@@ -386,18 +403,15 @@ Promise.all([
   stations=Array.isArray(S)?S:[S];
 
   attractions.forEach(a=>{
-    if(a.lng===undefined && a.long!==undefined) a.lng=a.long;
-    const m=L.marker([a.lat,a.lng]).addTo(map);
+    if(!a.id) a.id=slug(a.name);
+    if(a.lng===undefined&&a.long!==undefined) a.lng=a.long;
+    a.lat=Number(a.lat);
+    a.lng=Number(a.lng);
 
+    const m=L.marker([a.lat,a.lng]).addTo(map).bindPopup(`<strong>${a.name}</strong>`);
     markers[a.id]=m;
-    m.bindPopup(`<b>${a.name}</b><br><button onclick="window._expand('${a.id}')">See more</button>`);
-    m.on("click",()=>setExpandFor(a));
+    m.on("click",()=>showPanel(a));
   });
-
-  window._expand=id=>{
-    const a=attractions.find(x=>x.id===id);
-    if(a) showPanel(a);
-  };
 });
 </script>
 
