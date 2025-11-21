@@ -161,6 +161,7 @@ function showSidePanelFor(a){
     if(found) ns = `${stationNameOf(found)} (${found.distanceKm.toFixed(1)} km)`;
   }
   sidePanel.innerHTML = `
+    ${a.image ? `<img src="${a.image}">`:""}
     <h2>${a.name}</h2>
     <p class="muted">${a.type? a.type.join(', '): ''}</p>
     <p>${a.description? a.description : ''}</p>
