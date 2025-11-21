@@ -39,6 +39,19 @@
   },
 
   {
+    "name": "Thorpe Park",
+    "lat": 51.405540,
+    "lng": -0.510330,
+    "memberships": ["Merlin"],
+    "type": ["Theme Park", "Resort", "Thrills", "Amusement Park"],
+    "website": "https://www.thorpepark.com/",
+    "image": "https://www.daysoutguide.co.uk/media/439603/thorpe-park-og.jpg",
+    "description": "Step into the fun at the UK’s most thrilling theme park! With over 25 epic rides and attractions to experience, Thorpe Park is the ultimate destination to create lifetime memories with friends and family. Brave our Big 6 coasters, including the UK’s tallest, fastest and most weightless rollercoaster, Hyperia! Or cool off on the UK’s wettest water rides from plunging 85ft on Tidal Wave to racing your mates down Depth Charge. Whether you’re a fearless Thrillseeker chasing your next adrenaline rush or you’re looking to laugh, smile and make unforgettable memories, Thorpe Park has something for everyone! Book online to guarantee entry.",
+    "nearestStation": "Staines",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/CLS/details.html"
+  },
+
+  {
     "name": "Eden Project",
     "lat": 50.3618,
     "lng": -4.7445,
