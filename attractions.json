@@ -39,6 +39,19 @@
   },
 
   {
+    "name": "Eden Project",
+    "lat": 50.3618,
+    "lng": -4.7445,
+    "memberships": ["None"],
+    "type": ["Garden", "Museum"],
+    "website": "https://www.edenproject.com/",
+    "image": "https://www.edenproject.com/sites/default/files/styles/hero_l/public/2022-12/eden-project-biomes.jpg",
+    "description": "Biomes and ecological exhibits.",
+    "nearestStation": "St Austell",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/SAT/details.html"
+  },
+
+  {
     "name": "Thorpe Park",
     "lat": 51.405540,
     "lng": -0.510330,
@@ -52,15 +65,16 @@
   },
 
   {
-    "name": "Eden Project",
-    "lat": 50.3618,
-    "lng": -4.7445,
-    "memberships": ["None"],
-    "type": ["Garden", "Museum"],
-    "website": "https://www.edenproject.com/",
-    "image": "https://www.edenproject.com/sites/default/files/styles/hero_l/public/2022-12/eden-project-biomes.jpg",
-    "description": "Biomes and ecological exhibits.",
-    "nearestStation": "St Austell",
-    "trainwebsite": "https://www.nationalrail.co.uk/stations/SAT/details.html"
+    "name": "Alton Towers",
+    "lat": 52.991077,
+    "lng": -1.892294,
+    "memberships": ["Merlin"],
+    "type": ["Theme Park", "Resort", "Thrills", "Amusement Park"],
+    "website": "https://www.altontowers.com/",
+    "image": "https://www.altontowers.com//media/dcdgl0bt/03_thesmiler_upsidedown.jpg",
+    "description": "Step into the magic and adventure at Alton Towers Resort, the UK's largest theme park! Spanning over 500 acres of historic gardens and parkland, it's the ultimate destination for creating unforgettable memories with friends and family. Experience the rush on record-breaking rollercoasters, including The Smiler and the legendary Nemesis Reborn, or venture into the whimsical CBeebies Land with your little ones. Beyond the thrills, explore the splashtastic Waterpark or spend a night in one of the uniquely themed hotels. Whether you're a fearless thrill-seeker or looking for family fun, Alton Towers has something for everyone! Book tickets and plan your visit on the official Alton Towers website.",
+    "nearestStation": "Uttoxeter",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/CLS/details.html"
   }
+
 ]
