@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Startpage — Soft Theme</title>
+  <style>
+    :root{
+      --bg-image: url('background.jpg');
+      --card-bg: rgba(255,255,255,0.85);
+      --muted: #667085;
+      --text: #0f1724;
+      --accent: #6b7aa0;
+      --radius:13px;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(rgba(248,249,250,0.75), rgba(248,249,250,0.75)), center/cover var(--bg-image) fixed;color:var(--text)}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:26px}
+    .card{width:100%;max-width:920px;background:var(--card-bg);border-radius:16px;padding:26px;box-shadow:0 10px 30px rgba(12,18,30,0.08);backdrop-filter: blur(6px)}
+
+    .header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px}
+    .clock{font-weight:600;font-size:48px;line-height:1;color:var(--text)}
+    .date{color:var(--muted);font-size:13px;margin-top:6px}
+
+    .search-wrap{display:flex;gap:10px;align-items:center;margin-bottom:18px}
+    .search{flex:1;display:flex;align-items:center;background:rgba(255,255,255,0.95);padding:10px 12px;border-radius:12px;border:1px solid rgba(16,24,40,0.03)}
+    .search input{flex:1;background:transparent;border:0;outline:0;color:var(--text);font-size:15px;padding:8px}
+    .search button{border:0;background:var(--accent);color:#fff;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:600}
+
+    .engine{padding:8px 12px;border-radius:10px;border:1px solid rgba(16,24,40,0.04);background:transparent;color:var(--text);font-size:14px}
+
+    .shortcuts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .shortcut{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:rgba(255,255,255,0.95);text-decoration:none;color:inherit;border:1px solid rgba(16,24,40,0.03);transition:transform .12s ease, box-shadow .12s ease}
+    .shortcut:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(12,18,30,0.06)}
+    .icon{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:rgba(107,122,160,0.08);font-size:18px}
+    .label{font-size:14px;font-weight:600}
+    .sub{font-size:12px;color:var(--muted)}
+
+    .footer{margin-top:18px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+
+    @media (max-width:780px){
+      .clock{font-size:36px}
+      .shortcuts{grid-template-columns:repeat(2,1fr)}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="main">
+      <div class="header">
+        <div>
+          <div class="clock" id="clock">00:00</div>
+          <div class="date" id="date">Loading</div>
+        </div>
+        <div style="text-align:right;color:var(--muted);font-size:13px">Soft Startpage</div>
+      </div>
+
+      <form id="searchForm" class="search-wrap" action="https://www.google.com/search" method="GET" target="_self">
+        <div class="search">
+          <input id="searchInput" name="q" autocomplete="off" placeholder="Search or enter a URL (eg example.com)" aria-label="Search" />
+          <button type="submit" title="Search">Search</button>
+        </div>
+        <select id="engine" name="engine" class="engine" aria-label="Search engine">
+          <option value="google">Google</option>
+          <option value="ddg">DuckDuckGo</option>
+          <option value="bing">Bing</option>
+        </select>
+      </form>
+
+      <div class="shortcuts" id="shortcuts">
+        <!-- Replace URLs with your own -->
+        <a class="shortcut" href="https://mail.google.com" title="Gmail">
+          <div class="icon">✉️</div>
+          <div>
+            <div class="label">Gmail</div>
+            <div class="sub">mail.google.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://www.google.com" title="Google">
+          <div class="icon">🔎</div>
+          <div>
+            <div class="label">Google</div>
+            <div class="sub">google.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://www.youtube.com" title="YouTube">
+          <div class="icon">▶️</div>
+          <div>
+            <div class="label">YouTube</div>
+            <div class="sub">youtube.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://github.com" title="GitHub">
+          <div class="icon">💻</div>
+          <div>
+            <div class="label">GitHub</div>
+            <div class="sub">github.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://www.reddit.com" title="Reddit">
+          <div class="icon">👥</div>
+          <div>
+            <div class="label">Reddit</div>
+            <div class="sub">reddit.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://twitter.com" title="X / Twitter">
+          <div class="icon">🐦</div>
+          <div>
+            <div class="label">X</div>
+            <div class="sub">twitter.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://stackoverflow.com" title="Stack Overflow">
+          <div class="icon">🧩</div>
+          <div>
+            <div class="label">Stack Overflow</div>
+            <div class="sub">stackoverflow.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://www.bbc.co.uk/news" title="News">
+          <div class="icon">📰</div>
+          <div>
+            <div class="label">News</div>
+            <div class="sub">bbc.co.uk/news</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="footer">
+        <div>Startpage — editable HTML</div>
+        <div style="font-family:monospace">Tip: press <strong>/</strong> to focus search</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Clock & date (updates every 30s)
+    const clock = document.getElementById('clock');
+    const dateEl = document.getElementById('date');
+    function updateClock(){
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2,'0');
+      const mm = String(now.getMinutes()).padStart(2,'0');
+      clock.textContent = hh + ':' + mm;
+      const opts = { weekday: 'short', month:'short', day:'numeric' };
+      dateEl.textContent = now.toLocaleDateString(undefined, opts);
+    }
+    updateClock(); setInterval(updateClock, 30000);
+
+    // Search engine switch and direct-URL navigation
+    const form = document.getElementById('searchForm');
+    const engine = document.getElementById('engine');
+    form.addEventListener('submit', function(e){
+      const qEl = document.getElementById('searchInput');
+      const q = qEl.value.trim();
+      if(!q){ e.preventDefault(); qEl.focus(); return; }
+
+      // If user typed a URL, navigate directly
+      const looksLikeUrl = /^(https?:\/\/)/i.test(q) || /^[\w-]+\.[\w.-]+(\/.*)?$/.test(q);
+      if(looksLikeUrl){
+        e.preventDefault();
+        const url = /^(https?:\/\/)/i.test(q) ? q : 'https://' + q;
+        window.location.href = url;
+        return;
+      }
+
+      // Otherwise set action based on selected engine
+      const eng = engine.value;
+      if(eng === 'ddg'){
+        this.action = 'https://duckduckgo.com/';
+      } else if(eng === 'bing'){
+        this.action = 'https://www.bing.com/search';
+      } else {
+        this.action = 'https://www.google.com/search';
+      }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === '/'){
+        const tag = document.activeElement.tagName.toLowerCase();
+        if(tag !== 'input' && tag !== 'textarea'){
+          e.preventDefault(); document.getElementById('searchInput').focus();
+        }
+      }
+      if((e.ctrlKey||e.metaKey) && e.key.toLowerCase() === 'k'){
+        e.preventDefault(); document.getElementById('searchInput').focus();
+      }
+      if(e.key === 'Escape') document.activeElement.blur();
+    });
+  </script>
+</body>
+</html>
