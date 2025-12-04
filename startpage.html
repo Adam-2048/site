@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Startpage — Soft Theme</title>
+  <title>Adam's Startpage</title>
   <style>
     :root{
       --bg-image: url('background.jpg');
@@ -51,20 +51,19 @@
       <div class="header">
         <div>
           <div class="clock" id="clock">00:00</div>
-          <div class="date" id="date">Loading</div>
+          <div class="date" id="date">Loading...</div>
         </div>
         <div style="text-align:right;color:var(--muted);font-size:13px">Soft Startpage</div>
       </div>
 
       <form id="searchForm" class="search-wrap" action="https://www.google.com/search" method="GET" target="_self">
         <div class="search">
-          <input id="searchInput" name="q" autocomplete="off" placeholder="Search or enter a URL (eg example.com)" aria-label="Search" />
+          <input id="searchInput" name="q" autocomplete="off" placeholder="Search or enter a URL" aria-label="Search" />
           <button type="submit" title="Search">Search</button>
         </div>
         <select id="engine" name="engine" class="engine" aria-label="Search engine">
           <option value="google">Google</option>
           <option value="ddg">DuckDuckGo</option>
-          <option value="bing">Bing</option>
         </select>
       </form>
 
@@ -137,7 +136,7 @@
 
       <div class="footer">
         <div>Yes - the starpage has changed!</div>
-        <div style="font-family:monospace">Hi</div>
+        <div style="font-family:monospace">Hi :-)</div>
       </div>
     </div>
   </div>
@@ -177,8 +176,6 @@
       const eng = engine.value;
       if(eng === 'ddg'){
         this.action = 'https://duckduckgo.com/';
-      } else if(eng === 'bing'){
-        this.action = 'https://www.bing.com/search';
       } else {
         this.action = 'https://www.google.com/search';
       }
