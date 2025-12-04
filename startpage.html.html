@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Adam's Startpage</title>
+<style>
+  :root{
+    --bg-image: url('background.jpg');
+    --card-bg: rgba(20,22,30,0.75);
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --accent: #7ea0ff;
+    font-family: Inter, system-ui, -apple-system;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), center/cover var(--bg-image) fixed;color:var(--text)}
+  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
+  .card{width:100%;max-width:960px;background:var(--card-bg);backdrop-filter:blur(10px);border-radius:18px;padding:32px;box-shadow:0 10px 40px rgba(0,0,0,0.4)}
+
+  .greeting{font-size:22px;font-weight:500;color:var(--muted);margin-bottom:6px}
+  .clock{font-size:72px;font-weight:700;letter-spacing:-1px}
+  .date{color:var(--muted);font-size:14px;margin-top:4px}
+
+  .search-wrap{display:flex;gap:12px;margin:26px 0}
+  .search{flex:1;display:flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.08);padding:12px 14px;border-radius:14px}
+  .search input{flex:1;background:transparent;border:0;outline:0;color:var(--text);font-size:17px}
+  .search button{background:var(--accent);border:0;padding:10px 16px;border-radius:12px;color:#000;font-weight:600;cursor:pointer}
+
+  .engine{padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:var(--text);font-size:15px}
+
+  .shortcuts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:8px}
+  .shortcut{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.06);text-decoration:none;color:inherit;transition:0.15s}
+  .shortcut:hover{transform:translateY(-4px);background:rgba(255,255,255,0.14)}
+  .icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,0.12);font-size:20px}
+  .label{font-size:15px;font-weight:600}
+  .sub{font-size:12px;color:var(--muted)}
+
+  @media(max-width:760px){.shortcuts{grid-template-columns:repeat(2,1fr)} .clock{font-size:52px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="greeting" id="greeting">Hello Adam</div>
+    <div class="clock" id="clock">00:00</div>
+    <div class="date" id="date">Loading...</div>
+
+    <form id="searchForm" class="search-wrap" action="https://www.google.com/search" method="GET">
+      <div class="search">
+        <input id="searchInput" name="q" placeholder="Search or enter a URL...">
+        <button type="submit">Search</button>
+      </div>
+      <select id="engine" name="engine" class="engine">
+        <option value="google">Google</option>
+        <option value="ddg">DuckDuckGo</option>
+      </select>
+    </form>
+
+    <div class="shortcuts">
+      <a class="shortcut" href="https://mail.google.com"><div class="icon">✉️</div><div><div class="label">Gmail</div><div class="sub">mail.google.com</div></div></a>
+      <a class="shortcut" href="https://www.google.com"><div class="icon">🔎</div><div><div class="label">Google</div><div class="sub">google.com</div></div></a>
+      <a class="shortcut" href="https://www.youtube.com"><div class="icon">▶️</div><div><div class="label">YouTube</div><div class="sub">youtube.com</div></div></a>
+      <a class="shortcut" href="https://github.com"><div class="icon">💻</div><div><div class="label">GitHub</div><div class="sub">github.com</div></div></a>
+      <a class="shortcut" href="https://www.reddit.com"><div class="icon">👥</div><div><div class="label">Reddit</div><div class="sub">reddit.com</div></div></a>
+      <a class="shortcut" href="https://adamtest.site"><div class="icon">🌐</div><div><div class="label">My Site</div><div class="sub">adamtest.site</div></div></a>
+      <a class="shortcut" href="https://www.notion.so/Homepage-27da29728b8781a79c9dd3deb2f47bb6"><div class="icon">📝</div><div><div class="label">Notion</div><div class="sub">notion.so</div></div></a>
+      <a class="shortcut" href="https://www.bbc.co.uk/news"><div class="icon">📰</div><div><div class="label">News</div><div class="sub">bbc.co.uk/news</div></div></a>
+    </div>
+  </div>
+</div>
+
+<script>
+// Clock and date
+function updateClock(){
+  const now=new Date();
+  const hh=String(now.getHours()).padStart(2,'0');
+  const mm=String(now.getMinutes()).padStart(2,'0');
+  document.getElementById('clock').textContent=`${hh}:${mm}`;
+  document.getElementById('date').textContent=now.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+
+  const h=now.getHours();
+  let greet="";
+  if(h<12) greet="Good morning";
+  else if(h<17) greet="Good afternoon";
+  else greet="Good evening";
+  document.getElementById('greeting').textContent=`${greet}, Adam`;
+}
+updateClock();setInterval(updateClock,30000);
+
+// Search logic
+const form=document.getElementById('searchForm');
+const engine=document.getElementById('engine');
+form.addEventListener('submit',e=>{
+  const q=document.getElementById('searchInput').value.trim();
+  if(!q){e.preventDefault();return;}
+
+  const isUrl=/^(https?:\/\/)/i.test(q)||/^[\w-]+\.[\w.-]+(\/.*)?$/.test(q);
+  if(isUrl){e.preventDefault();window.location.href=/^(https?:\/\/)/i.test(q)?q:`https://${q}`;return;}
+
+  if(engine.value==='ddg') form.action='https://duckduckgo.com/';
+  else form.action='https://www.google.com/search';
+});
+</script>
+</body>
+</html>
