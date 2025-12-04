@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Startpage</title>
+  <style>
+    :root{
+      --bg:#f5f7fa;--card:#ffffff;--muted:#6b7280;--accent:#3b82f6;--glass: rgba(0,0,0,0.04);
+      --radius:14px; --gap:20px; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#eef1f6 0%, #e6e9ef 100%);color:#111827}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
+    .card{width:100%;max-width:980px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:var(--radius);padding:28px;box-shadow:0 6px 30px rgba(2,6,23,0.6);backdrop-filter: blur(6px);}
+
+    .top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .clock{font-weight:600;font-size:64px;letter-spacing: -2px}
+    .date{color:var(--muted);font-size:14px;margin-top:6px}
+
+    .search-wrap{margin:28px 0;display:flex;gap:12px}
+    .search{flex:1;display:flex;align-items:center;background:var(--glass);padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .search input{flex:1;background:transparent;border:0;outline:0;color:inherit;font-size:16px;padding:8px}
+    .search button{border:0;background:transparent;padding:8px 12px;border-radius:8px;cursor:pointer}
+    .search button:hover{background:rgba(255,255,255,0.02)}
+
+    .shortcuts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .shortcut{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));text-decoration:none;color:inherit;border:1px solid rgba(255,255,255,0.03);transition:transform .14s ease, box-shadow .14s ease}
+    .shortcut:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(3,8,20,0.6)}
+    .icon{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:rgba(255,255,255,0.03)}
+    .label{font-size:14px}
+    .sub{font-size:12px;color:var(--muted)}
+
+    .controls{display:flex;gap:10px;align-items:center}
+    .btn{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted);cursor:pointer}
+
+    @media (max-width:720px){
+      .clock{font-size:42px}
+      .shortcuts{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* small credit at bottom */
+    .footer{margin-top:18px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="main">
+      <div class="top">
+        <div>
+          <div class="clock" id="clock">00:00</div>
+          <div class="date" id="date">Loading date</div>
+        </div>
+        <div class="controls">
+          <button class="btn" id="toggleTheme" title="Toggle light/dark">Toggle theme</button>
+          <button class="btn" id="focusSearch" title="Focus search">Focus search</button>
+        </div>
+      </div>
+
+      <form id="searchForm" class="search-wrap" action="https://www.google.com/search" method="GET" target="_self">
+        <div class="search">
+          <input id="searchInput" name="q" autocomplete="off" placeholder="Search the web or type a URL..." />
+          <button type="submit" title="Search">
+            <!-- simple search icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+        </div>
+        <select id="engine" name="_engine" style="width:160px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
+          <option value="google">Google</option>
+          <option value="ddg">DuckDuckGo</option>
+          <option value="bing">Bing</option>
+        </select>
+      </form>
+
+      <div class="shortcuts" id="shortcuts">
+        <!-- Edit the hrefs below to point to your own sites -->
+        <a class="shortcut" href="https://mail.google.com" title="Gmail">
+          <div class="icon">📧</div>
+          <div>
+            <div class="label">Gmail</div>
+            <div class="sub">mail.google.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://www.google.com" title="Google">
+          <div class="icon">🔎</div>
+          <div>
+            <div class="label">Google</div>
+            <div class="sub">google.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://www.youtube.com" title="YouTube">
+          <div class="icon">▶️</div>
+          <div>
+            <div class="label">YouTube</div>
+            <div class="sub">youtube.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://github.com" title="GitHub">
+          <div class="icon">💻</div>
+          <div>
+            <div class="label">GitHub</div>
+            <div class="sub">github.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://www.reddit.com" title="Reddit">
+          <div class="icon">👥</div>
+          <div>
+            <div class="label">Reddit</div>
+            <div class="sub">reddit.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://twitter.com" title="X / Twitter">
+          <div class="icon">🐦</div>
+          <div>
+            <div class="label">X</div>
+            <div class="sub">twitter.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://stackoverflow.com" title="Stack Overflow">
+          <div class="icon">🧩</div>
+          <div>
+            <div class="label">Stack Overflow</div>
+            <div class="sub">stackoverflow.com</div>
+          </div>
+        </a>
+
+        <a class="shortcut" href="https://www.bbc.co.uk/news" title="News">
+          <div class="icon">📰</div>
+          <div>
+            <div class="label">News</div>
+            <div class="sub">bbc.co.uk/news</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="footer">
+        <div>Startpage • editable HTML</div>
+        <div style="color:var(--muted);font-family:monospace;font-size:12px">Tip: press <strong>/</strong> to focus search</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Clock & date
+    const clock = document.getElementById('clock');
+    const dateEl = document.getElementById('date');
+    function updateClock(){
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2,'0');
+      const mm = String(now.getMinutes()).padStart(2,'0');
+      clock.textContent = hh + ':' + mm;
+      const opts = { weekday: 'short', month:'short', day:'numeric' };
+      dateEl.textContent = now.toLocaleDateString(undefined, opts);
+    }
+    updateClock(); setInterval(updateClock, 1000*30);
+
+    // Search engine switch
+    const form = document.getElementById('searchForm');
+    const engine = document.getElementById('engine');
+    form.addEventListener('submit', function(e){
+      const q = document.getElementById('searchInput').value.trim();
+      if(!q) { e.preventDefault(); return; }
+      const eng = engine.value;
+      if(eng === 'ddg'){
+        this.action = 'https://duckduckgo.com/';
+        this.method = 'GET';
+        // DuckDuckGo uses q
+      } else if(eng === 'bing'){
+        this.action = 'https://www.bing.com/search';
+        this.method = 'GET';
+      } else {
+        this.action = 'https://www.google.com/search';
+        this.method = 'GET';
+      }
+    });
+
+    // Theme toggle (simple)
+    const toggle = document.getElementById('toggleTheme');
+    toggle.addEventListener('click', function(){
+      document.documentElement.style.setProperty('--bg', getComputedStyle(document.documentElement).getPropertyValue('--bg') === '#fff' ? '#0f1720' : '#fff');
+      // quick light mode switch: invert background and text
+      if(document.body.style.backgroundColor){
+        document.body.style.backgroundColor = '';
+        document.body.style.color = '';
+      } else {
+        document.body.style.backgroundColor = '#ffffff';
+        document.body.style.color = '#0b1220';
+      }
+    });
+
+    // Keyboard shortcuts for focusing search
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === '/' || (e.key === 'k' && (e.ctrlKey || e.metaKey))){
+        e.preventDefault(); document.getElementById('searchInput').focus();
+      }
+      if(e.key === 'Escape') document.getElementById('searchInput').blur();
+    });
+
+    document.getElementById('focusSearch').addEventListener('click', ()=>document.getElementById('searchInput').focus());
+
+    // Allow typing a full URL into the search box to navigate directly
+    form.addEventListener('submit', function(e){
+      const q = document.getElementById('searchInput').value.trim();
+      const isUrl = /^(https?:\/\/)/i.test(q) || /^([\w-]+\.)+[\w-]{2,}(\/.*)?$/i.test(q);
+      if(isUrl){
+        e.preventDefault();
+        const url = /^(https?:\/\/)/i.test(q) ? q : 'https://' + q;
+        window.location.href = url;
+      }
+    });
+  </script>
+</body>
+</html>
