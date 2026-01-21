@@ -77,7 +77,7 @@ function updateClock(){
   const hh=String(now.getHours()).padStart(2,'0');
   const mm=String(now.getMinutes()).padStart(2,'0');
   document.getElementById('clock').textContent=`${hh}:${mm}`;
-  document.getElementById('date').textContent=now.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+  document.getElementById('date').textContent=now.toLocaleDateString(undefined,{weekday:'short', day:'numeric', month:'short'});
 
   const h=now.getHours();
   let greet="";
