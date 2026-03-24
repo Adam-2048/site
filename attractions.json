@@ -27,8 +27,8 @@
 
   {
     "name": "Chessington World of Adventures",
-    "lat": 51.34561083234303,
-    "lng": -0.31592330878221553,
+    "lat": 51.3456,
+    "lng": -0.3159,
     "memberships": ["Merlin"],
     "type": ["Theme Park", "Resort", "Zoo", "Family-fun", "Amusement Park"],
     "website": "https://www.chessington.com/",
