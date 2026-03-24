@@ -89,13 +89,6 @@
     "nearestStation": "Uttoxeter",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/CLS/details.html"
   }
-
-
-
-
-
-
-
   
   {
     "name": "LEGOLAND Windsor Resort",
@@ -109,6 +102,7 @@
     "nearestStation": "Windsor & Eton Central",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/WNC/details.html"
   },
+  
   {
     "name": "Warwick Castle",
     "lat": 52.2797,
@@ -121,6 +115,7 @@
     "nearestStation": "Warwick",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/WRW/details.html"
   },
+  
   {
     "name": "The London Eye",
     "lat": 51.5033,
@@ -133,6 +128,7 @@
     "nearestStation": "Waterloo",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/WAT/details.html"
   },
+  
   {
     "name": "Madame Tussauds London",
     "lat": 51.5229,
@@ -145,6 +141,7 @@
     "nearestStation": "Marylebone",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/MYB/details.html"
   },
+  
   {
     "name": "SEA LIFE London Aquarium",
     "lat": 51.5010,
@@ -157,6 +154,7 @@
     "nearestStation": "Waterloo",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/WAT/details.html"
   },
+  
   {
     "name": "Shrek’s Adventure! London",
     "lat": 51.5015,
@@ -169,6 +167,7 @@
     "nearestStation": "Waterloo",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/WAT/details.html"
   },
+  
   {
     "name": "The London Dungeon",
     "lat": 51.5020,
@@ -181,6 +180,7 @@
     "nearestStation": "Waterloo",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/WAT/details.html"
   },
+  
   {
     "name": "Madame Tussauds Blackpool",
     "lat": 53.8144,
@@ -193,6 +193,7 @@
     "nearestStation": "Blackpool North",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/BPN/details.html"
   },
+  
   {
     "name": "The Blackpool Tower",
     "lat": 53.8145,
@@ -205,6 +206,7 @@
     "nearestStation": "Blackpool North",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/BPN/details.html"
   },
+  
   {
     "name": "The Blackpool Tower Dungeon",
     "lat": 53.8142,
@@ -217,6 +219,7 @@
     "nearestStation": "Blackpool North",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/BPN/details.html"
   },
+  
   {
     "name": "Peter Rabbit Explore and Play Blackpool",
     "lat": 53.8129,
@@ -229,6 +232,7 @@
     "nearestStation": "Blackpool North",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/BPN/details.html"
   },
+  
   {
     "name": "The Edinburgh Dungeon",
     "lat": 55.9526,
@@ -241,6 +245,7 @@
     "nearestStation": "Edinburgh",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/EDB/details.html"
   },
+  
   {
     "name": "The York Dungeon",
     "lat": 53.9575,
@@ -253,10 +258,7 @@
     "nearestStation": "York",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/YRK/details.html"
   },
-  {
-    "name": "The London Dungeon (already above)",
-    "note": "Included above – keep only one London Dungeon entry in your data."
-  },
+  
   {
     "name": "National SEA LIFE Centre Birmingham",
     "lat": 52.4777,
@@ -269,6 +271,7 @@
     "nearestStation": "Birmingham New Street",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/BHM/details.html"
   },
+  
   {
     "name": "SEA LIFE Manchester",
     "lat": 53.4740,
@@ -281,6 +284,7 @@
     "nearestStation": "Humphrey Park",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/HUP/details.html"
   },
+  
   {
     "name": "SEA LIFE Blackpool",
     "lat": 53.8124,
@@ -293,6 +297,7 @@
     "nearestStation": "Blackpool North",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/BPN/details.html"
   },
+  
   {
     "name": "SEA LIFE Brighton",
     "lat": 50.8203,
@@ -305,6 +310,7 @@
     "nearestStation": "Brighton",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/BTN/details.html"
   },
+  
   {
     "name": "SEA LIFE Weymouth",
     "lat": 50.6090,
@@ -317,6 +323,7 @@
     "nearestStation": "Weymouth",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/WEY/details.html"
   },
+  
   {
     "name": "Cadbury World",
     "lat": 52.4351,
@@ -329,6 +336,7 @@
     "nearestStation": "Bournville",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/BRV/details.html"
   },
+  
   {
     "name": "LEGOLAND Discovery Centre Manchester",
     "lat": 53.4741,
@@ -341,6 +349,7 @@
     "nearestStation": "Humphrey Park",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/HUP/details.html"
   },
+  
   {
     "name": "LEGOLAND Discovery Centre Birmingham",
     "lat": 52.4779,
@@ -353,6 +362,7 @@
     "nearestStation": "Birmingham New Street",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/BHM/details.html"
   },
+  
   {
     "name": "SEA LIFE Loch Lomond",
     "lat": 56.0117,
@@ -365,6 +375,7 @@
     "nearestStation": "Balloch",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/BHC/details.html"
   },
+  
   {
     "name": "SEA LIFE Scarborough",
     "lat": 54.2987,
@@ -377,6 +388,7 @@
     "nearestStation": "Scarborough",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/SCA/details.html"
   },
+  
   {
     "name": "SEA LIFE Hunstanton",
     "lat": 52.9444,
@@ -389,4 +401,5 @@
     "nearestStation": "King's Lynn",
     "trainwebsite": "https://www.nationalrail.co.uk/stations/KLN/details.html"
   }
+  
 ]
