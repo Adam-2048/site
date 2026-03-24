@@ -27,8 +27,8 @@
 
   {
     "name": "Chessington World of Adventures",
-    "lat": 51.3456,
-    "lng": -0.3159,
+    "lat": 51.3499,
+    "lng": -0.3136,
     "memberships": ["Merlin"],
     "type": ["Theme Park", "Resort", "Zoo", "Family-fun", "Amusement Park"],
     "website": "https://www.chessington.com/",
@@ -90,4 +90,303 @@
     "trainwebsite": "https://www.nationalrail.co.uk/stations/CLS/details.html"
   }
 
+
+
+
+
+
+
+  
+  {
+    "name": "LEGOLAND Windsor Resort",
+    "lat": 51.4634,
+    "lng": -0.6547,
+    "memberships": ["Merlin"],
+    "type": ["Theme Park", "Resort", "Family-fun"],
+    "website": "https://www.legoland.co.uk/",
+    "image": "https://www.legoland.co.uk/media/0evb5j3q/llw-bricks.jpg",
+    "description": "Family theme park built around LEGO, featuring rides, shows, and LEGO-themed attractions aimed primarily at children aged 2–12.",
+    "nearestStation": "Windsor & Eton Central",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/WNC/details.html"
+  },
+  {
+    "name": "Warwick Castle",
+    "lat": 52.2797,
+    "lng": -1.5856,
+    "memberships": ["Merlin"],
+    "type": ["Castle", "Heritage", "Family-fun"],
+    "website": "https://www.warwick-castle.com/",
+    "image": "https://www.warwick-castle.com/media/1n5bqv5d/warwick-castle-exterior.jpg",
+    "description": "Historic medieval castle with live shows, dungeons experiences, and seasonal events, operated as a family attraction and short-break resort.",
+    "nearestStation": "Warwick",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/WRW/details.html"
+  },
+  {
+    "name": "The London Eye",
+    "lat": 51.5033,
+    "lng": -0.1195,
+    "memberships": ["Merlin"],
+    "type": ["Observation Wheel", "Landmark"],
+    "website": "https://www.londoneye.com/",
+    "image": "https://www.londoneye.com/media/0ahd5x0w/london-eye-river-thames.jpg",
+    "description": "Iconic riverside observation wheel on the South Bank of the Thames, offering panoramic views across central London.",
+    "nearestStation": "Waterloo",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/WAT/details.html"
+  },
+  {
+    "name": "Madame Tussauds London",
+    "lat": 51.5229,
+    "lng": -0.1548,
+    "memberships": ["Merlin"],
+    "type": ["Attraction", "Wax Museum"],
+    "website": "https://www.madametussauds.com/london/",
+    "image": "https://www.madametussauds.com/london/media/0b5b0a1c/mtl-exterior.jpg",
+    "description": "World-famous wax museum featuring lifelike figures of celebrities, historical figures, and fictional characters.",
+    "nearestStation": "Marylebone",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/MYB/details.html"
+  },
+  {
+    "name": "SEA LIFE London Aquarium",
+    "lat": 51.5010,
+    "lng": -0.1187,
+    "memberships": ["Merlin"],
+    "type": ["Aquarium", "Family-fun"],
+    "website": "https://www.visitsealife.com/london/",
+    "image": "https://www.visitsealife.com/london/media/0z3p0pqy/sealife-london-tank.jpg",
+    "description": "Large aquarium on London’s South Bank showcasing marine species, walk-through tunnels, and conservation-themed exhibits.",
+    "nearestStation": "Waterloo",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/WAT/details.html"
+  },
+  {
+    "name": "Shrek’s Adventure! London",
+    "lat": 51.5015,
+    "lng": -0.1192,
+    "memberships": ["Merlin"],
+    "type": ["Immersive Experience", "Family-fun"],
+    "website": "https://www.shreksadventure.com/london/",
+    "image": "https://www.shreksadventure.com/london/media/3q2j0zfn/shreks-adventure-london-exterior.jpg",
+    "description": "Interactive, Shrek-themed walk-through attraction with live actors, 4D bus ride and story-led experiences set in the DreamWorks universe.",
+    "nearestStation": "Waterloo",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/WAT/details.html"
+  },
+  {
+    "name": "The London Dungeon",
+    "lat": 51.5020,
+    "lng": -0.1196,
+    "memberships": ["Merlin"],
+    "type": ["Immersive Experience", "Dungeon", "Attraction"],
+    "website": "https://www.thedungeons.com/london/",
+    "image": "https://www.thedungeons.com/london/media/vrab5xiz/london-dungeon-exterior.jpg",
+    "description": "Dark, theatrical attraction retelling gruesome events from London’s history with live actors, sets and rides.",
+    "nearestStation": "Waterloo",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/WAT/details.html"
+  },
+  {
+    "name": "Madame Tussauds Blackpool",
+    "lat": 53.8144,
+    "lng": -3.0552,
+    "memberships": ["Merlin"],
+    "type": ["Attraction", "Wax Museum"],
+    "website": "https://www.madametussauds.com/blackpool/",
+    "image": "https://www.madametussauds.com/blackpool/media/2gqf3s02/mtb-exterior.jpg",
+    "description": "Seaside Madame Tussauds with wax figures of TV stars, musicians and British cultural icons.",
+    "nearestStation": "Blackpool North",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/BPN/details.html"
+  },
+  {
+    "name": "The Blackpool Tower",
+    "lat": 53.8145,
+    "lng": -3.0550,
+    "memberships": ["Merlin"],
+    "type": ["Landmark", "Observation", "Entertainment"],
+    "website": "https://www.theblackpooltower.com/",
+    "image": "https://www.theblackpooltower.com/media/0f1jv0wv/blackpool-tower-exterior.jpg",
+    "description": "Victorian seaside tower complex including an observation deck, circus, ballroom and family attractions.",
+    "nearestStation": "Blackpool North",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/BPN/details.html"
+  },
+  {
+    "name": "The Blackpool Tower Dungeon",
+    "lat": 53.8142,
+    "lng": -3.0551,
+    "memberships": ["Merlin"],
+    "type": ["Immersive Experience", "Dungeon"],
+    "website": "https://www.thedungeons.com/blackpool/",
+    "image": "https://www.thedungeons.com/blackpool/media/3xxgq0dd/blackpool-dungeon-exterior.jpg",
+    "description": "Dungeon attraction beneath Blackpool Tower with live actor-led shows about Lancashire and coastal history’s darker side.",
+    "nearestStation": "Blackpool North",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/BPN/details.html"
+  },
+  {
+    "name": "Peter Rabbit Explore and Play Blackpool",
+    "lat": 53.8129,
+    "lng": -3.0564,
+    "memberships": ["Merlin"],
+    "type": ["Soft Play", "Family-fun"],
+    "website": "https://www.peterrabbitexploreandplay.co.uk/blackpool/",
+    "image": "https://www.peterrabbitexploreandplay.co.uk/blackpool/media/htffqsbp/peter-rabbit-blackpool-exterior.jpg",
+    "description": "Indoor family attraction themed around Peter Rabbit, featuring role-play areas and activities for younger children.",
+    "nearestStation": "Blackpool North",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/BPN/details.html"
+  },
+  {
+    "name": "The Edinburgh Dungeon",
+    "lat": 55.9526,
+    "lng": -3.1907,
+    "memberships": ["Merlin"],
+    "type": ["Immersive Experience", "Dungeon"],
+    "website": "https://www.thedungeons.com/edinburgh/",
+    "image": "https://www.thedungeons.com/edinburgh/media/2s1e4gnh/edinburgh-dungeon-exterior.jpg",
+    "description": "Actor-led, horror-comedy attraction exploring gruesome episodes from Scottish and Edinburgh history.",
+    "nearestStation": "Edinburgh",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/EDB/details.html"
+  },
+  {
+    "name": "The York Dungeon",
+    "lat": 53.9575,
+    "lng": -1.0847,
+    "memberships": ["Merlin"],
+    "type": ["Immersive Experience", "Dungeon"],
+    "website": "https://www.thedungeons.com/york/",
+    "image": "https://www.thedungeons.com/york/media/3e5hm2aj/york-dungeon-exterior.jpg",
+    "description": "Dungeon attraction using live shows and special effects to retell dark stories from York’s past.",
+    "nearestStation": "York",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/YRK/details.html"
+  },
+  {
+    "name": "The London Dungeon (already above)",
+    "note": "Included above – keep only one London Dungeon entry in your data."
+  },
+  {
+    "name": "National SEA LIFE Centre Birmingham",
+    "lat": 52.4777,
+    "lng": -1.9146,
+    "memberships": ["Merlin"],
+    "type": ["Aquarium", "Family-fun"],
+    "website": "https://www.visitsealife.com/birmingham/",
+    "image": "https://www.visitsealife.com/birmingham/media/0tlv5i5e/sealife-birmingham-exterior.jpg",
+    "description": "Urban aquarium at Brindleyplace with underwater tunnel and exhibits focused on marine conservation.",
+    "nearestStation": "Birmingham New Street",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/BHM/details.html"
+  },
+  {
+    "name": "SEA LIFE Manchester",
+    "lat": 53.4740,
+    "lng": -2.3493,
+    "memberships": ["Merlin"],
+    "type": ["Aquarium", "Family-fun"],
+    "website": "https://www.visitsealife.com/manchester/",
+    "image": "https://www.visitsealife.com/manchester/media/3pofqg2x/sealife-manchester-exterior.jpg",
+    "description": "Aquarium at TraffordCity with shark tunnel, interactive rock pools and themed marine exhibits.",
+    "nearestStation": "Humphrey Park",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/HUP/details.html"
+  },
+  {
+    "name": "SEA LIFE Blackpool",
+    "lat": 53.8124,
+    "lng": -3.0568,
+    "memberships": ["Merlin"],
+    "type": ["Aquarium", "Family-fun"],
+    "website": "https://www.visitsealife.com/blackpool/",
+    "image": "https://www.visitsealife.com/blackpool/media/0b3k3t1q/sealife-blackpool-exterior.jpg",
+    "description": "Seafront aquarium featuring tropical and native marine life, including walk-through tunnels and themed zones.",
+    "nearestStation": "Blackpool North",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/BPN/details.html"
+  },
+  {
+    "name": "SEA LIFE Brighton",
+    "lat": 50.8203,
+    "lng": -0.1379,
+    "memberships": ["Merlin"],
+    "type": ["Aquarium", "Family-fun"],
+    "website": "https://www.visitsealife.com/brighton/",
+    "image": "https://www.visitsealife.com/brighton/media/1xwjx2yh/sealife-brighton-exterior.jpg",
+    "description": "Historic Victorian aquarium opposite Brighton Pier with ornate architecture and a variety of marine species.",
+    "nearestStation": "Brighton",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/BTN/details.html"
+  },
+  {
+    "name": "SEA LIFE Weymouth",
+    "lat": 50.6090,
+    "lng": -2.4449,
+    "memberships": ["Merlin"],
+    "type": ["Aquarium", "Family-fun"],
+    "website": "https://www.visitsealife.com/weymouth/",
+    "image": "https://www.visitsealife.com/weymouth/media/0k2zxgaj/sealife-weymouth-exterior.jpg",
+    "description": "Coastal SEA LIFE park with outdoor and indoor exhibits, featuring penguins, turtles and rockpools.",
+    "nearestStation": "Weymouth",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/WEY/details.html"
+  },
+  {
+    "name": "Cadbury World",
+    "lat": 52.4351,
+    "lng": -1.9323,
+    "memberships": ["Merlin"],
+    "type": ["Food Attraction", "Museum", "Family-fun"],
+    "website": "https://www.cadburyworld.co.uk/",
+    "image": "https://www.cadburyworld.co.uk/media/4xchgeay/cadbury-world-exterior.jpg",
+    "description": "Chocolate-themed visitor attraction telling the story of Cadbury with interactive zones and chocolate-making demonstrations.",
+    "nearestStation": "Bournville",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/BRV/details.html"
+  },
+  {
+    "name": "LEGOLAND Discovery Centre Manchester",
+    "lat": 53.4741,
+    "lng": -2.3488,
+    "memberships": ["Merlin"],
+    "type": ["Indoor Attraction", "Family-fun"],
+    "website": "https://www.legolanddiscoverycentre.com/manchester/",
+    "image": "https://www.legolanddiscoverycentre.com/manchester/media/2mvf1x43/ldc-manchester-exterior.jpg",
+    "description": "Indoor LEGO attraction at TraffordCentre with rides, 4D cinema and building zones for younger children.",
+    "nearestStation": "Humphrey Park",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/HUP/details.html"
+  },
+  {
+    "name": "LEGOLAND Discovery Centre Birmingham",
+    "lat": 52.4779,
+    "lng": -1.9117,
+    "memberships": ["Merlin"],
+    "type": ["Indoor Attraction", "Family-fun"],
+    "website": "https://www.legolanddiscoverycentre.com/birmingham/",
+    "image": "https://www.legolanddiscoverycentre.com/birmingham/media/0fx3t5os/ldc-birmingham-exterior.jpg",
+    "description": "Indoor LEGO world at Birmingham’s Arena complex with rides, brick pits and themed building areas.",
+    "nearestStation": "Birmingham New Street",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/BHM/details.html"
+  },
+  {
+    "name": "SEA LIFE Loch Lomond",
+    "lat": 56.0117,
+    "lng": -4.5816,
+    "memberships": ["Merlin"],
+    "type": ["Aquarium", "Family-fun"],
+    "website": "https://www.visitsealife.com/loch-lomond/",
+    "image": "https://www.visitsealife.com/loch-lomond/media/4cgqrzg4/sealife-loch-lomond-exterior.jpg",
+    "description": "Aquarium on the shores of Loch Lomond, focusing on native Scottish and global marine species.",
+    "nearestStation": "Balloch",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/BHC/details.html"
+  },
+  {
+    "name": "SEA LIFE Scarborough",
+    "lat": 54.2987,
+    "lng": -0.3995,
+    "memberships": ["Merlin"],
+    "type": ["Aquarium", "Family-fun"],
+    "website": "https://www.visitsealife.com/scarborough/",
+    "image": "https://www.visitsealife.com/scarborough/media/2o0evsjp/sealife-scarborough-exterior.jpg",
+    "description": "Coastal SEA LIFE attraction with outdoor seal and penguin habitats plus themed indoor tanks.",
+    "nearestStation": "Scarborough",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/SCA/details.html"
+  },
+  {
+    "name": "SEA LIFE Hunstanton",
+    "lat": 52.9444,
+    "lng": 0.4930,
+    "memberships": ["Merlin"],
+    "type": ["Aquarium", "Family-fun"],
+    "website": "https://www.visitsealife.com/hunstanton/",
+    "image": "https://www.visitsealife.com/hunstanton/media/15gmz5t1/sealife-hunstanton-exterior.jpg",
+    "description": "Small coastal SEA LIFE centre featuring otters, seals and marine life from local and global waters.",
+    "nearestStation": "King's Lynn",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/KLN/details.html"
+  }
 ]
