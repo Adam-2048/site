@@ -26,6 +26,19 @@
   },
 
   {
+    "name": "Chessington World of Adventures",
+    "lat": 51.34561083234303,
+    "lng": -0.31592330878221553,
+    "memberships": ["Merlin"],
+    "type": ["Theme Park", "Resort", "Zoo", "Family-fun", "Amusement Park"],
+    "website": "https://www.chessington.com/",
+    "image": "https://www.chessington.com//media/sqdfwrxh/ooh-jumanji-tourist_web-images-new.jpg",
+    "description": "Chessington World of Adventures Resort is Britain’s Wildest Adventure, offering a mix of theme park thrills, a zoo, and a SEA LIFE aquarium. Located in Surrey, it features over 1,000 animals, themed rides like Mandrill Mayhem, and the UK's only PAW Patrol-themed land. It's a premier family destination with on-site themed hotels.",
+    "nearestStation": "Chessington South",
+    "trainwebsite": "https://www.nationalrail.co.uk/stations/CSS/details.html"
+  },
+
+  {
     "name": "Dapdune Wharf",
     "lat": 51.24272,
     "lng": -0.57819,
