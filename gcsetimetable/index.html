@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GCSE Exam Planner 2026 — Your Personal Timetable</title>
+  <meta name="description" content="Official GCSE exam dates and times for Summer 2026. Select your subjects, build your personal calendar, download or print.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-logo">
+        <span class="logo-icon">📋</span>
+        <span class="logo-text">GCSE Planner <em>2026</em></span>
+      </div>
+      <nav class="header-nav">
+        <a href="#subjects">Subjects</a>
+        <a href="#calendar">Calendar</a>
+        <a href="#my-timetable">My Exams</a>
+        <button class="btn-download-header" id="headerDownloadBtn" onclick="downloadICS()">↓ Download Calendar</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-noise"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">Summer 2026 — Official Dates</div>
+      <h1 class="hero-title">Your GCSE<br><em>Exam Planner</em></h1>
+      <p class="hero-sub">Select your subjects below. We'll build your personal calendar — shareable, downloadable, printable. No login required.</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">7 May</span><span class="stat-label">First Exam</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">17 Jun</span><span class="stat-label">Last Exam</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">20 Aug</span><span class="stat-label">Results Day</span></div>
+      </div>
+      <a href="#subjects" class="btn-hero">Choose My Subjects ↓</a>
+    </div>
+    <div class="hero-scroll-indicator">Scroll to pick your subjects</div>
+  </section>
+
+  <!-- SUBJECT PICKER -->
+  <section class="section-subjects" id="subjects">
+    <div class="container">
+      <div class="section-header">
+        <h2>Select Your Subjects</h2>
+        <p>Tick each subject you're sitting. All major boards (AQA, Edexcel, OCR) share the same core dates.</p>
+      </div>
+
+      <div class="subject-groups" id="subjectGroups">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="selection-bar" id="selectionBar">
+        <div class="selection-info">
+          <span class="selection-count" id="selectionCount">0</span> subject<span id="subjectPlural">s</span> selected
+        </div>
+        <div class="selection-actions">
+          <button class="btn-secondary" onclick="clearAll()">Clear all</button>
+          <a href="#my-timetable" class="btn-primary" id="viewTimetableBtn">View My Timetable →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDAR VIEW -->
+  <section class="section-calendar" id="calendar">
+    <div class="container">
+      <div class="section-header">
+        <h2>Full Exam Calendar</h2>
+        <p>All GCSE exams, May–June 2026. Your selected subjects are highlighted.</p>
+      </div>
+      <div class="calendar-grid" id="calendarGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- MY TIMETABLE -->
+  <section class="section-mytimetable" id="my-timetable">
+    <div class="container">
+      <div class="section-header">
+        <h2>My Personal Timetable</h2>
+        <p>Only your selected subjects. Download, print or share the link — no account needed.</p>
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">📚</div>
+        <p>Select subjects above to build your timetable</p>
+        <a href="#subjects" class="btn-primary">Choose Subjects</a>
+      </div>
+
+      <div class="my-timetable-wrap" id="myTimetableWrap" style="display:none">
+        <div class="timetable-actions">
+          <button class="btn-action" onclick="downloadICS()">
+            <span class="btn-icon">📅</span> Download .ics Calendar
+          </button>
+          <button class="btn-action" onclick="printTimetable()">
+            <span class="btn-icon">🖨️</span> Print Timetable
+          </button>
+          <button class="btn-action" onclick="copyShareLink()">
+            <span class="btn-icon">🔗</span> Copy Share Link
+          </button>
+        </div>
+
+        <div class="printable-timetable" id="printableTimetable">
+          <div class="print-header">
+            <div class="print-title">
+              <h2>My GCSE Exam Timetable 2026</h2>
+              <p class="print-note">Generated at adamtest.site/gcsetimetable — Always confirm with your school</p>
+            </div>
+          </div>
+          <table class="timetable-table" id="timetableTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Day</th>
+                <th>Session</th>
+                <th>Subject</th>
+                <th>Paper</th>
+                <th>Duration</th>
+                <th>Boards</th>
+              </tr>
+            </thead>
+            <tbody id="timetableBody">
+            </tbody>
+          </table>
+        </div>
+
+        <div class="countdown-strip" id="countdownStrip">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPORTANT NOTES -->
+  <section class="section-notes">
+    <div class="container">
+      <h2 class="notes-title">Important Information</h2>
+      <div class="notes-grid">
+        <div class="note-card">
+          <div class="note-icon">⚠️</div>
+          <h3>Always Check With Your School</h3>
+          <p>These are the JCQ common timetable dates. Your school's personalised timetable is the definitive source for room numbers, exact start times, and any local arrangements.</p>
+        </div>
+        <div class="note-card">
+          <div class="note-icon">📅</div>
+          <h3>Contingency Day</h3>
+          <p><strong>Wednesday 24 June 2026</strong> is the JCQ contingency day. Keep it free — exams may be rescheduled here in the event of a national disruption.</p>
+        </div>
+        <div class="note-card">
+          <div class="note-icon">🗣️</div>
+          <h3>MFL Speaking Tests</h3>
+          <p>Modern Foreign Language speaking exams happen before the written papers — usually January to May. Your school will give you the specific date.</p>
+        </div>
+        <div class="note-card">
+          <div class="note-icon">🎨</div>
+          <h3>Non-Exam Assessments</h3>
+          <p>Art & Design, PE and similar subjects include coursework or practical assessments, typically completed by April 2026. Check with your teacher.</p>
+        </div>
+        <div class="note-card">
+          <div class="note-icon">📋</div>
+          <h3>Board Timetable PDFs</h3>
+          <p>Download the official PDFs:
+            <a href="https://www.aqa.org.uk/exams-administration/dates-and-timetables" target="_blank" rel="noopener">AQA</a> ·
+            <a href="https://qualifications.pearson.com/en/support/exam-timetables.html" target="_blank" rel="noopener">Edexcel</a> ·
+            <a href="https://www.ocr.org.uk/administration/key-dates-and-timetables/" target="_blank" rel="noopener">OCR</a>
+          </p>
+        </div>
+        <div class="note-card">
+          <div class="note-icon">🔁</div>
+          <h3>Resits</h3>
+          <p>Maths and English Language can be resat in <strong>November 2026</strong>. All other subjects can be resat in Summer 2027. Contact your school or college.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>GCSE Planner 2026 — Built for students, by students. Dates sourced from official AQA, Edexcel and OCR timetables.</p>
+      <p class="footer-small">This is an unofficial tool. Always verify dates with your school and exam board. Results day: <strong>Thursday 20 August 2026</strong>.</p>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
