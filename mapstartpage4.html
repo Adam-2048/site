@@ -376,7 +376,7 @@ function showSidePanelFor(a){
       <button id="closePanel2" class="small">Close</button>
     </div>
   `;
-  el('takeThere').onclick = ()=> { map.flyTo(location.coords, 13); markers[a.id]?.openPopup(); };
+  el('takeThere').onclick = ()=> { map.flyTo(position.coords, 13); markers[a.id]?.openPopup(); };
   el('closePanel2').onclick = ()=> sidePanel.style.display = 'none';
 }
 
